@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useQuery } from 'react-query';
 import { headers } from '../constants/index';
 
-const getRepository = async (keyword, page) => {
+export const getRepository = async (keyword, page) => {
   try {
     const response = await axios.get(`/api/search/repositories`, {
       params: {

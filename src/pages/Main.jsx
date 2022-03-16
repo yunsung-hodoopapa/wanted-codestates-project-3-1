@@ -1,14 +1,18 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import styled from 'styled-components';
 import InputField from '../components/InputField';
 import ResultField from '../components/ResultField';
 import { debounce } from 'lodash';
+import Gnb from '../components/Gnb';
+import List from '../components/List';
+import RepoDetail from '../components/RepoDetail';
 import { QueryClientProvider, QueryClient } from 'react-query';
-
-const queryClient = new QueryClient();
+import Pagination from '../components/Pagination';
 
 const Main = () => {
+  // const [items, setItems] = useState([]);
   const [inputValue, setInputValue] = useState('');
+  const queryClient = new QueryClient();
 
   const onChangeInput = useCallback(
     e => {
@@ -18,25 +22,33 @@ const Main = () => {
   );
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <Container>
-        <InputField onChangeInput={onChangeInput} inputValue={inputValue} />
-        <br />
-        <ResultField inputValue={inputValue} setInputValue={setInputValue} />
-      </Container>
-    </QueryClientProvider>
+    <MainWrap>
+      <QueryClientProvider client={queryClient}>
+        <Gnb />
+        <Container>
+          <InputField onChangeInput={onChangeInput} inputValue={inputValue} />
+          <br />
+          <ResultField inputValue={inputValue} setInputValue={setInputValue} />
+        </Container>
+        <RepoDetail />
+      </QueryClientProvider>
+    </MainWrap>
   );
 };
 
-const Container = styled.section`
-  width: 700px;
+export const MainWrap = styled.div`
   display: flex;
-  justify-content: center;
-  align-items: center;
+`;
+
+const Container = styled.section`
+  width: 100%;
+  max-width: 680px;
+  display: flex;
+  align-items: start;
   flex-direction: column;
   margin-left: auto;
   margin-right: auto;
-  padding: 20px 0px;
+  padding: 35px 0px;
 `;
 
 export default Main;

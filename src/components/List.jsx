@@ -1,69 +1,54 @@
-import React, { useCallback, useState } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { useQueryClient } from 'react-query';
-import { useRepoResults } from '../util/axios';
-import Pagination from './Pagination';
 
-// eslint-disable-next-line react/prop-types
-const ResultField = ({ inputValue, setInputValue }) => {
-  const queryClient = useQueryClient();
-  const [page, setPage] = useState(1);
+const List = ({ type = 'stored', item }) => {
+  let itemId, repoName, htmlUrl, imgUrl, name, text, date;
 
-  const { data, error, isPreviousData, isFetching, status, isLoading } =
-    useRepoResults(inputValue, page);
-
-  const onHandleList = name => {
-    setInputValue(name);
-  };
+  if (type === 'issue') {
+    const issue = item;
+  } else {
+    const { id, full_name, owner, description, updated_at } = item;
+    [itemId, name, imgUrl, text, date] = [
+      id,
+      full_name,
+      owner.avatar_url,
+      description,
+      updated_at,
+    ];
+  }
 
   const onClickEvent = () => {
-    console.log('이동 준비중');
+    if (type === 'issue') {
+      location.replace(htmlUrl);
+    }
   };
 
-  const getDataByStatus = useCallback(() => {
-    switch (status) {
-      case 'loading':
-        return <div>Loading</div>;
-      case 'error':
-        return <span>Error: {error.message}</span>;
-      default:
-        return (
-          <>
-            {data
-              ? data.items?.map(item => {
-                  const { id, full_name, decription, updated_at, owner } = item;
-                  const { avatar_url } = owner;
-                  return (
-                    <Box key={id} onClick={onClickEvent}>
-                      <Content>
-                        <img src={avatar_url} alt={name} />
-                        <div>
-                          <h3>{full_name}</h3>
-                          <p>{decription}</p>
-                          <span>{updated_at}</span>
-                        </div>
-                      </Content>
-                      <Option>
-                        <button>저 장</button>
-                      </Option>
-                    </Box>
-                  );
-                })
-              : null}
-            {data.total_count ? (
-              <Pagination
-                page={page}
-                setPage={setPage}
-                totalCount={data.total_count}
-              />
-            ) : null}
-            {isFetching ? <span>Loading...</span> : null}
-          </>
-        );
-    }
-  }, [status, isFetching]);
+  const saveRepo = () => {
+    console.log('saveRepo');
+  };
 
-  return data ? <>{getDataByStatus()}</> : null;
+  const removeRepo = () => {
+    console.log('removeRepos');
+  };
+
+  return (
+    <Box type={type} onClick={onClickEvent}>
+      <Content>
+        <img src={imgUrl} alt={name} />
+        <div>
+          <h3>{name}</h3>
+          <p>{text}</p>
+          <span>{date}</span>
+        </div>
+      </Content>
+      <Option>
+        {type === 'repo' ? <button onClick={saveRepo}>저 장</button> : null}
+        {type === 'issue' ? <p>{repoName}</p> : null}
+        {type === 'stored' ? <i onClick={removeRepo}></i> : null}
+      </Option>
+    </Box>
+  );
 };
 
 const Box = styled.div`
@@ -182,4 +167,9 @@ const Option = styled.div`
   }
 `;
 
-export default ResultField;
+List.propTypes = {
+  type: PropTypes.string,
+  item: PropTypes.object,
+};
+
+export default List;
