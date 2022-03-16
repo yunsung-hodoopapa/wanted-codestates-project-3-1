@@ -1,7 +1,12 @@
 import React from 'react';
+import StoredRepository from '../components/StoredRepository';
 
 const Issue = () => {
-  return <div>자 이제 시작이야!</div>;
+  return (
+    <div>
+      <StoredRepository />
+    </div>
+  );
 };
 
 export default Issue;
