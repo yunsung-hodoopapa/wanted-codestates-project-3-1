@@ -5,19 +5,20 @@ import { AiOutlineDoubleLeft, AiOutlineDoubleRight } from 'react-icons/ai';
 
 const PaginationComponent = styled.div`
   position: relative;
-  width: 220px;
+  width: 300px;
   margin: 0 auto;
   ul {
     display: flex;
     margin: 0 auto;
-    width: 140px;
+    width: 220px;
     margin: 0 auto;
     justify-content: center;
     overflow: hidden;
     li {
+      width: calc(100% / 5);
       button {
-        padding: 4px 7px;
-        margin: 0 2px;
+        width: 100%;
+        padding: 7px 0;
         background-color: transparent;
         border: 1px solid #ccc;
         box-sizing: border-box;
@@ -61,7 +62,7 @@ const Pagination = () => {
   const [fivePage, setFivePage] = useState(0);
 
   const pageContentCount = 7;
-  const totalCount = 54;
+  const totalCount = 1000;
   const totalPageCount = Math.ceil(totalCount / pageContentCount);
 
   useEffect(() => {
@@ -74,8 +75,10 @@ const Pagination = () => {
 
   const handlePageCount = bool => {
     if (bool) {
+      if (fivePage <= 0) return;
       setFivePage(fivePage - 1);
     } else {
+      if (totalPageCount <= (fivePage + 1) * 5) return;
       setFivePage(fivePage + 1);
     }
   };
