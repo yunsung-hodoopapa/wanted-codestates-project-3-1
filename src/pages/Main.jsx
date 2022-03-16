@@ -1,7 +1,12 @@
 import React from 'react';
+import NotificationMessage from '../components/NotificationMessage';
 
 const Main = () => {
-  return <div>시작해봅시다.</div>;
+  return (
+    <div>
+      <NotificationMessage />
+    </div>
+  );
 };
 
 export default Main;
