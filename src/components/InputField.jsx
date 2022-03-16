@@ -25,7 +25,8 @@ const InputField = ({ onChangeInput, inputValue }) => {
 
 const Wrapper = styled.div`
   display: flex;
-  width: 660px;
+  width: 100%;
+  max-width: 600px;
   height: 64.7969px;
   position: relative;
   background-color: #ffffff;
@@ -38,7 +39,8 @@ const InputFieldWrapper = styled.div`
   align-items: center;
   flex-direction: row;
   line-height: 28.8px;
-  width: 660px;
+  width: 100%;
+  max-width: 600px;
   padding: 20px 24px;
   font-weight: 400;
   font-size: 16px;

@@ -1,8 +1,11 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import styled from 'styled-components';
 import InputField from '../components/InputField';
 import ResultField from '../components/ResultField';
 import Gnb from '../components/Gnb';
+import List from '../components/List';
+import RepoDetail from '../components/RepoDetail';
+import { getRepository } from '../util/axios';
 import { debounce } from '../util/index';
 import { QueryClientProvider, QueryClient } from 'react-query';
 import NotificationMessage from '../components/NotificationMessage';
@@ -10,6 +13,7 @@ import NotificationMessage from '../components/NotificationMessage';
 const queryClient = new QueryClient();
 
 const Main = () => {
+  const [items, setItems] = useState([]);
   const [inputValue, setInputValue] = useState('');
 
   const onChangeInput = useCallback(
@@ -19,6 +23,14 @@ const Main = () => {
     [inputValue],
   );
 
+  useEffect(() => {
+    const axios = async () => {
+      const items = await getRepository('nam', 1);
+      setItems(items);
+    };
+    axios();
+  }, [inputValue]);
+
   return (
     <MainWrap>
       <QueryClientProvider client={queryClient}>
@@ -27,7 +39,11 @@ const Main = () => {
           <InputField onChangeInput={onChangeInput} inputValue={inputValue} />
           <br />
           <ResultField inputValue={inputValue} setInputValue={setInputValue} />
+          {items.map(item => (
+            <List key={item.id} item={item} type="repo" />
+          ))}
         </Container>
+        <RepoDetail />
       </QueryClientProvider>
     </MainWrap>
   );

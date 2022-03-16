@@ -13,16 +13,16 @@ const RepoConatiner = styled.div`
   background-color: white;
 
   // 테두리
-  border: 1px solid silver;
-  border-radius: 20px;
-  box-shadow: 1px 3px 7px 3px silver;
+  border-radius: 16px;
+  box-shadow: 2px 2px 10px 1px rgba(160, 160, 160, 0.4);
 `;
 
 const RepoContent = styled.div`
   margin: 10px;
 `;
-const RepoProfile = styled.img`
+const RepoProfile = styled.div`
   /* border: 1px solid black; */
+  background-color: #ddd;
   width: 50px;
   height: 50px;
   border-radius: 100px;
@@ -30,21 +30,21 @@ const RepoProfile = styled.img`
   margin-top: 20px;
 `;
 
-const RepoTitle = styled.div`
+const RepoTitle = styled.h3`
   color: #3d57c2;
   font-weight: bold;
-  font-size: 22px;
-  margin-bottom: 15px;
+  font-size: 20px;
+  margin-bottom: 10px;
 `;
-const RepoDescription = styled.div`
+const RepoDescription = styled.p`
   color: #666666;
-  font-size: 18px;
-  margin-bottom: 15px;
+  font-size: 17px;
+  margin-bottom: 8px;
 `;
 
-const RepoUpdated = styled.div`
+const RepoUpdated = styled.p`
   color: #8b8c93;
-  font-size: 15px;
+  font-size: 14px;
   margin-bottom: 15px;
 `;
 

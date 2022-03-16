@@ -46,10 +46,10 @@ const Gnb = () => {
 };
 
 const Wrapper = styled.nav`
-  background-color: var(--light-gray);
-  width: 450px;
-  max-width: 450px;
-  height: 800px;
+  background-color: #fff;
+  width: 420px;
+  max-width: 420px;
+  min-height: 100vh;
   > svg {
     margin: 35px 30px 115px 50px;
   }

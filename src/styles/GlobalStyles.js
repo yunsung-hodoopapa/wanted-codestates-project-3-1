@@ -17,6 +17,10 @@ const GlobalStyles = createGlobalStyle`
 		color: #333;
 	}
 
+	button {
+		font-family: 'Pretendard Variable';
+	}
+
 	:root {
 		--main-blue: #3D57C2;
 		--sub-blue: #7281D6;

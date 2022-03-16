@@ -1,17 +1,18 @@
 import React from 'react';
 import StoredRepository from './StoredRepository';
+// import List from './List';
 import styled from 'styled-components';
 
 const Container = styled.div`
   /* margin: 50px; */
   background-color: white;
-  width: 570px;
-  height: 800px;
+  width: 520px;
+  min-height: 100vh;
 `;
 
 const Title = styled.div`
   margin: 50px;
-  font-size: 30px;
+  font-size: 22px;
   font-weight: bold;
 `;
 
@@ -20,6 +21,7 @@ const StoredRepoContainer = () => {
     <Container>
       <Title>Stored Repository</Title>
       <StoredRepository />
+      {/* <List /> */}
     </Container>
   );
 };
