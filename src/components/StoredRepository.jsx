@@ -10,6 +10,8 @@ const RepoConatiner = styled.div`
   height: 100px;
   margin: 0 auto;
   margin-top: 30px;
+  background-color: white;
+
   // 테두리
   border: 1px solid silver;
   border-radius: 20px;

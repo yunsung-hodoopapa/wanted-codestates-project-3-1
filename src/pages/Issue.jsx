@@ -8,6 +8,7 @@ const Issue = () => {
   return (
     <MainWrap>
       <Gnb />
+      <div>컴포넌트</div>
       <StoredRepoContainer />
     </MainWrap>
   );
