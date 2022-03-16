@@ -55,14 +55,10 @@ const PaginationComponent = styled.div`
   }
 `;
 
-const Pagination = () => {
-  const [page, setPage] = useState(1);
+const Pagination = ({page, setPage, totalCount}) => {
   const [totalPage, setTotalPage] = useState([]);
   const [fivePage, setFivePage] = useState(0);
-
-  const pageContentCount = 7;
-  const totalCount = 54;
-  const totalPageCount = Math.ceil(totalCount / pageContentCount);
+  const totalPageCount = Math.ceil(totalCount / 7);
 
   useEffect(() => {
     let paginationNumber = [];
@@ -85,7 +81,7 @@ const Pagination = () => {
       <div>{page}</div>
       <PaginationComponent>
         <div>
-          <button onClick={() => handlePageCount(true)}>
+          <button onClick={() => handlePageCount(true)} disabled={page === 1}>
             <AiOutlineDoubleLeft />
           </button>
           <button onClick={() => handlePageCount(false)}>
@@ -111,6 +107,10 @@ const Pagination = () => {
   );
 };
 
-Pagination.propTypes = {};
+Pagination.propTypes = {
+  page: PropTypes.number,
+  setPage: PropTypes.func,
+  totalCount: PropTypes.number,
+};
 
 export default Pagination;
