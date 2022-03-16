@@ -13,7 +13,7 @@ const RepoConatiner = styled.div`
   // 테두리
   border: 1px solid silver;
   border-radius: 20px;
-  box-shadow: 3px 3px 5px silver;
+  box-shadow: 1px 3px 7px 3px silver;
 `;
 
 const RepoContent = styled.div`
@@ -59,8 +59,11 @@ const StoredRepository = () => {
       <RepoProfile />
       <RepoContent>
         <RepoTitle>Repo name</RepoTitle>
-        <RepoDescription>한줄 넘기면 ... (38자)</RepoDescription>
-        <RepoUpdated>레파지토리 업데이트 날짜</RepoUpdated>
+        <RepoDescription>
+          {'repo description repo description'.slice(0, 33)}...
+        </RepoDescription>
+        {/* 33자 */}
+        <RepoUpdated>Updated at 2022-01-18</RepoUpdated>
       </RepoContent>
       <X>
         <span style={{ cursor: 'pointer' }}>&times;</span>

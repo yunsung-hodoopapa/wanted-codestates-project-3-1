@@ -50,7 +50,7 @@ const Wrapper = styled.div`
   width: 660px;
   background-color: #ffffff;
   border-radius: 42px;
-  lint-height: 25.6px;
+  line-height: 25.6px;
 `;
 
 const SearchedItem = styled.li`
