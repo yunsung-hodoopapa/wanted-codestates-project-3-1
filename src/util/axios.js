@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { header } from '../constants';
+import { useQuery } from 'react-query';
+import { headers } from '../constants';
 
 export const getRepository = async (keyword, number) => {
   try {
@@ -12,7 +13,7 @@ export const getRepository = async (keyword, number) => {
           page: number,
         },
       },
-      { header },
+      { headers },
     );
     const repoData = response.body;
     return repoData;
@@ -24,7 +25,7 @@ export const getRepository = async (keyword, number) => {
 export const getIssue = async (owner_id, name) => {
   try {
     const response = await axios.get(`/api/repos/${owner_id}/${name}/issues`, {
-      header,
+      headers,
     });
     const issueData = response.body;
     return issueData;
