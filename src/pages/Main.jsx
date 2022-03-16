@@ -2,7 +2,7 @@ import React, { useState, useCallback, useEffect } from 'react';
 import styled from 'styled-components';
 import InputField from '../components/InputField';
 import ResultField from '../components/ResultField';
-import { debounce } from 'lodash';
+import { debounce } from '../util/index';
 import Gnb from '../components/Gnb';
 import List from '../components/List';
 import RepoDetail from '../components/RepoDetail';
