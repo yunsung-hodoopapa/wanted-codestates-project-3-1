@@ -5,12 +5,11 @@ import ResultField from '../components/ResultField';
 import Gnb from '../components/Gnb';
 import { debounce } from '../util/index';
 import { QueryClientProvider, QueryClient } from 'react-query';
-import NotificationMessage from '../components/NotificationMessage';
-
-const queryClient = new QueryClient();
+import Pagination from '../components/Pagination';
 
 const Main = () => {
   const [inputValue, setInputValue] = useState('');
+  const queryClient = new QueryClient();
 
   const onChangeInput = useCallback(
     e => {
@@ -27,6 +26,7 @@ const Main = () => {
           <InputField onChangeInput={onChangeInput} inputValue={inputValue} />
           <br />
           <ResultField inputValue={inputValue} setInputValue={setInputValue} />
+          <Pagination />
         </Container>
       </QueryClientProvider>
     </MainWrap>
