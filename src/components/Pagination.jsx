@@ -33,8 +33,8 @@ const PaginationComponent = styled.div`
   }
   div {
     button {
-      width: 22px;
-      height: 22px;
+      width: 24px;
+      height: 24px;
       position: absolute;
       top: 50%;
       margin-top: -11px;
@@ -49,7 +49,7 @@ const PaginationComponent = styled.div`
         right: 0;
       }
       svg {
-        vertical-align: top;
+        vertical-align: sub;
       }
     }
   }
