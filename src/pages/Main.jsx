@@ -5,6 +5,7 @@ import ResultField from '../components/ResultField';
 import Gnb from '../components/Gnb';
 import { debounce } from '../util/index';
 import { QueryClientProvider, QueryClient } from 'react-query';
+import NotificationMessage from '../components/NotificationMessage';
 
 const queryClient = new QueryClient();
 
