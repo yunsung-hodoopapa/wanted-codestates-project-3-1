@@ -20,7 +20,7 @@ const MessageContainer = styled.div`
       ? '2px solid #97a1ff'
       : '2px solid red'}; // 바뀐다
   border-radius: 5px;
-  box-shadow: 1px 1px 10px 2px;
+  box-shadow: 1px 1px 3px 1px;
 
   // 글씨
   color: ${props =>
