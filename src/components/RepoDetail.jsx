@@ -5,7 +5,7 @@ const RepoDetail = () => {
   return (
     <Wrapper>
       <ProfilePic />
-      <RepoName>user_name/selected_repo_name=fullname…</RepoName>
+      <RepoName>user_name/selected_repo_name=fullname</RepoName>
       <RepoDesc>repo description repo description</RepoDesc>
       <RepoUpdated>Updated on 2022-01-18</RepoUpdated>
       <SaveBtn>저 장</SaveBtn>
@@ -16,7 +16,7 @@ const RepoDetail = () => {
 const Wrapper = styled.nav`
   background-color: #fff;
   width: 100%;
-  max-width: 520px;
+  max-width: 480px;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -37,6 +37,10 @@ const RepoName = styled.p`
   color: var(--main-blue);
   font-weight: 500;
   margin-bottom: 40px;
+  width: 400px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 `;
 
 const RepoDesc = styled.p`
@@ -55,9 +59,9 @@ const SaveBtn = styled.button`
   background-color: var(--main-blue);
   border: none;
   color: #f1f1f1;
-  font-size: 20px;
-  width: 180px;
-  height: 60px;
+  font-size: 18px;
+  width: 160px;
+  height: 50px;
   border-radius: 10px;
   cursor: pointer;
 
