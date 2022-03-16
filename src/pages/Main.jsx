@@ -4,6 +4,7 @@ import InputField from '../components/InputField';
 import ResultField from '../components/ResultField';
 import { debounce } from '../util/index';
 import { QueryClientProvider, QueryClient } from 'react-query';
+import Pagination from '../components/Pagination';
 
 const Main = () => {
   const [inputValue, setInputValue] = useState('');
@@ -22,6 +23,7 @@ const Main = () => {
         <InputField onChangeInput={onChangeInput} inputValue={inputValue} />
         <br />
         <ResultField inputValue={inputValue} setInputValue={setInputValue} />
+        <Pagination />
       </Container>
     </QueryClientProvider>
   );
