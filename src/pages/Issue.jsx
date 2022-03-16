@@ -1,11 +1,15 @@
 import React from 'react';
 import Gnb from '../components/Gnb';
 import { MainWrap } from './Main';
+import StoredRepoContainer from '../components/StoredRepoContainer';
+import StoredRepository from '../components/StoredRepository';
 
 const Issue = () => {
   return (
     <MainWrap>
-      <Gnb />자 이제 시작이야!
+      <Gnb />
+      <div>컴포넌트</div>
+      <StoredRepoContainer />
     </MainWrap>
   );
 };
