@@ -8,13 +8,12 @@ import RepoDetail from '../components/RepoDetail';
 import { getRepository } from '../util/axios';
 import { debounce } from '../util/index';
 import { QueryClientProvider, QueryClient } from 'react-query';
-import NotificationMessage from '../components/NotificationMessage';
-
-const queryClient = new QueryClient();
+import Pagination from '../components/Pagination';
 
 const Main = () => {
   const [items, setItems] = useState([]);
   const [inputValue, setInputValue] = useState('');
+  const queryClient = new QueryClient();
 
   const onChangeInput = useCallback(
     e => {
@@ -42,6 +41,7 @@ const Main = () => {
           {items.map(item => (
             <List key={item.id} item={item} type="repo" />
           ))}
+          <Pagination />
         </Container>
         <RepoDetail />
       </QueryClientProvider>
