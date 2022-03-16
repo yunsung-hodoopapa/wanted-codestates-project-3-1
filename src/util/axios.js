@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { useQuery } from 'react-query';
-import { headers } from '../constants';
+import { headers } from '../constants/index';
 
-export const getRepository = async (keyword, number) => {
+const getRepository = async (keyword, number) => {
   try {
     const response = await axios.get(
       `/api/search/repositories`,
@@ -15,14 +15,15 @@ export const getRepository = async (keyword, number) => {
       },
       { headers },
     );
-    const repoData = response.body;
+    const repoData = response.data.items;
+    console.log(repoData);
     return repoData;
   } catch (error) {
     console.error(error);
   }
 };
 
-export const getIssue = async (owner_id, name) => {
+const getIssue = async (owner_id, name) => {
   try {
     const response = await axios.get(`/api/repos/${owner_id}/${name}/issues`, {
       headers,
@@ -33,3 +34,20 @@ export const getIssue = async (owner_id, name) => {
     console.error(error);
   }
 };
+
+export const useRepoResults = (keyword, number) => {
+  return useQuery(['keyword', keyword], () => getRepository(keyword, number), {
+    enabled: !!keyword,
+    // select: (data) => data.slice(0, 10),
+  })
+}
+
+export const useIssueResults = (owner_id, name) => {
+  return useQuery(['owner_id', owner_id], () => getIssue(owner_id, name), {
+    enabled: !!owner_id,
+    // select: (data) => data.slice(0, 10),
+  })
+}
+
+
+
