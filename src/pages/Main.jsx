@@ -1,7 +1,8 @@
 import React from 'react';
+import Pagination from '../components/Pagination';
 
 const Main = () => {
-  return <div>시작해봅시다.</div>;
+  return <Pagination />;
 };
 
 export default Main;
