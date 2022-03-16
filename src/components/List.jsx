@@ -33,7 +33,7 @@ const List = ({ type = 'stored', item }) => {
   };
 
   return (
-    <Box onClick={onClickEvent}>
+    <Box type={type} onClick={onClickEvent}>
       <Content>
         <img src={imgUrl} alt={name} />
         <div>
@@ -43,7 +43,7 @@ const List = ({ type = 'stored', item }) => {
         </div>
       </Content>
       <Option>
-        {type === 'repo' ? <button onClick={saveRepo}>저장</button> : null}
+        {type === 'repo' ? <button onClick={saveRepo}>저 장</button> : null}
         {type === 'issue' ? <p>{repoName}</p> : null}
         {type === 'stored' ? <i onClick={removeRepo}></i> : null}
       </Option>
@@ -55,13 +55,21 @@ const Box = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
-  margin: 22px 50px;
+  margin: 11px auto;
   border-radius: 16px;
   background-color: #fff;
   transition: all 0.3s;
   :hover {
-    filter: drop-shadow(2px 2px 12px rgba(84, 83, 133, 0.5));
+    filter: ${props =>
+      props.type !== 'stored'
+        ? 'drop-shadow(2px 2px 10px rgba(84, 83, 133, 0.3))'
+        : 'none'};
   }
+
+  box-shadow: ${props =>
+    props.type === 'stored'
+      ? '2px 2px 10px 1px rgba(160, 160, 160, 0.4)'
+      : 'none'};
 `;
 
 const Content = styled.div`
@@ -74,12 +82,12 @@ const Content = styled.div`
   }
   h3 {
     line-height: 1.5;
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 600;
     color: #3d57c2;
   }
   p {
-    font-size: 18px;
+    font-size: 16px;
     width: 200px;
     color: #666;
     line-height: 1.5;
@@ -88,7 +96,7 @@ const Content = styled.div`
     overflow: hidden;
   }
   span {
-    font-size: 15px;
+    font-size: 14px;
     line-height: 1.5;
     color: #8b8c93;
   }
@@ -102,15 +110,20 @@ const Option = styled.div`
   position: relative;
   //저장 버튼
   button {
-    width: 123px;
+    width: 100px;
     height: 100%;
     border: none;
     background-color: #7281d6;
     color: #fff;
-    font-size: 18px;
+    font-size: 16px;
     border-top-right-radius: 16px;
     border-end-end-radius: 16px;
     cursor: pointer;
+    transition: all 0.3s;
+
+    &:hover {
+      background-color: var(--main-blue);
+    }
   }
   .registered {
     color: #8b8c93;
