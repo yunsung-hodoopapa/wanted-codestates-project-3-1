@@ -29,13 +29,13 @@ const Gnb = () => {
       </svg>
       <ListWrap>
         <NavList>
-          <NavLink to="/" activeClassName="active">
+          <NavLink to="/" activeclassname="active">
             <MdSearch size="24" />
             <span>Find repository</span>
           </NavLink>
         </NavList>
         <NavList>
-          <NavLink to="/issue" activeClassName="active">
+          <NavLink to="/issue" activeclassname="active">
             <MdFolderOpen size="24" />
             <span>Stored repository & issues</span>
           </NavLink>
@@ -46,10 +46,10 @@ const Gnb = () => {
 };
 
 const Wrapper = styled.nav`
-  background-color: var(--light-gray);
-  width: 450px;
-  max-width: 450px;
-  height: 800px;
+  background-color: #fff;
+  width: 420px;
+  max-width: 420px;
+  min-height: 100vh;
   > svg {
     margin: 35px 30px 115px 50px;
   }
