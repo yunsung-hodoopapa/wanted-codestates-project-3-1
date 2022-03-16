@@ -2,31 +2,31 @@ import axios from 'axios';
 import { useQuery } from 'react-query';
 import { headers } from '../constants/index';
 
-const getRepository = async (keyword, number) => {
+const getRepository = async (keyword, page) => {
   try {
-    const response = await axios.get(
-      `/api/search/repositories`,
-      {
-        params: {
-          q: keyword,
-          per_page: 10,
-          page: number,
-        },
+    const response = await axios.get(`/api/search/repositories`, {
+      params: {
+        q: keyword,
+        per_page: 7,
+        page,
       },
-      { headers },
-    );
-    const repoData = response.data.items;
-    console.log(repoData);
-    return repoData;
+      headers,
+    });
+    const data = response.data;
+    return data;
   } catch (error) {
     console.error(error);
   }
 };
 
-const getIssue = async (owner_id, name) => {
+const getIssue = async (owner, repo) => {
   try {
-    const response = await axios.get(`/api/repos/${owner_id}/${name}/issues`, {
-      headers,
+    const response = await axios.get(`/api/repos/${owner}/${repo}/issues`, {
+      params: {
+        owner,
+        repo,
+        headers,
+      },
     });
     const issueData = response.body;
     return issueData;
@@ -35,19 +35,17 @@ const getIssue = async (owner_id, name) => {
   }
 };
 
-export const useRepoResults = (keyword, number) => {
-  return useQuery(['keyword', keyword], () => getRepository(keyword, number), {
+export const useRepoResults = (keyword, page) => {
+  return useQuery(['results', page], () => getRepository(keyword, page), {
     enabled: !!keyword,
+    keepPreviousData: true,
     // select: (data) => data.slice(0, 10),
-  })
-}
+  });
+};
 
-export const useIssueResults = (owner_id, name) => {
-  return useQuery(['owner_id', owner_id], () => getIssue(owner_id, name), {
-    enabled: !!owner_id,
-    // select: (data) => data.slice(0, 10),
-  })
-}
-
-
-
+export const useIssueResults = (owner, repo) => {
+  return useQuery(['owner', owner], () => getIssue(owner, repo), {
+    enabled: !!owner,
+    keepPreviousData: true,
+  });
+};

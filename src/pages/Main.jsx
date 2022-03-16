@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 import styled from 'styled-components';
 import InputField from '../components/InputField';
 import ResultField from '../components/ResultField';
-import { debounce } from '../util/index';
+import { debounce } from 'lodash';
 import { QueryClientProvider, QueryClient } from 'react-query';
 
 const queryClient = new QueryClient();
@@ -12,7 +12,7 @@ const Main = () => {
 
   const onChangeInput = useCallback(
     e => {
-      debounce(setInputValue(e.target.value), 1000);
+      debounce(setInputValue(e.target.value), 500);
     },
     [inputValue],
   );
