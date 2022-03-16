@@ -5,7 +5,6 @@ const GlobalStyles = createGlobalStyle`
 	//style reset
 	${reset}
 
-	@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable.css');
 	body {
     letter-spacing: -0.02em;
     background-color: #E2E5FF;
