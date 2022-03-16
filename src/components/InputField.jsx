@@ -30,7 +30,7 @@ const Wrapper = styled.div`
   position: relative;
   background-color: #ffffff;
   border-radius: 42px;
-  lint-height: 25.6px;
+  line-height: 25.6px;
 `;
 
 const InputFieldWrapper = styled.div`
