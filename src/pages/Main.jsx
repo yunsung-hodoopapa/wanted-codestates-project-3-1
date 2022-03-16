@@ -38,6 +38,7 @@ const Main = () => {
           <InputField onChangeInput={onChangeInput} inputValue={inputValue} />
           <br />
           <ResultField inputValue={inputValue} setInputValue={setInputValue} />
+          <ResultCount>{items.length} repository results</ResultCount>
           {items.map(item => (
             <List key={item.id} item={item} type="repo" />
           ))}
@@ -52,15 +53,22 @@ const Main = () => {
 export const MainWrap = styled.div`
   display: flex;
 `;
+
 const Container = styled.section`
-  width: 700px;
+  width: 100%;
+  max-width: 680px;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: start;
   flex-direction: column;
   margin-left: auto;
   margin-right: auto;
-  padding: 20px 0px;
+  padding: 35px 0px;
 `;
 
+const ResultCount = styled.p`
+  text-align: left;
+  padding: 6px 0;
+  font-weight: 500;
+`;
 export default Main;

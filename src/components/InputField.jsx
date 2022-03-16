@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { BiSearchAlt2 } from 'react-icons/bi';
+import { MdSearch } from 'react-icons/md';
 
 // eslint-disable-next-line react/prop-types
 const InputField = ({ onChangeInput, inputValue }) => {
@@ -13,7 +13,7 @@ const InputField = ({ onChangeInput, inputValue }) => {
         placeholder="search"
       />
       <Button>
-        <BiSearchAlt2 size={25} color="black" />
+        <MdSearch size={25} color="black" />
       </Button>
     </Wrapper>
   );
