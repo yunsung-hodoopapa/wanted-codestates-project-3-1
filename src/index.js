@@ -4,7 +4,7 @@ import GlobalStyles from './styles/GlobalStyles';
 import App from './App';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import rootReducer from './redux/reducers/index';
+import rootReducer from './redux/reducer';
 
 const store = createStore(
   rootReducer,
