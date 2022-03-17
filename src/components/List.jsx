@@ -77,7 +77,7 @@ const List = ({ type = 'repo', item, clickHandle }) => {
         <div>
           <h3>{title}</h3>
           <p>{text}</p>
-          <span>updated_at {date.split('T')[0]}</span>
+          <span>Updated at {date.split('T')[0]}</span>
         </div>
       </Content>
       <Option>
