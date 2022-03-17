@@ -27,6 +27,7 @@ const ResultField = ({ inputValue, setInputValue, clickRepo }) => {
       default:
         return (
           <>
+            <ResultCount>{data.total_count} repository results</ResultCount>
             {data
               ? data.items?.map(item => {
                   const { id, full_name, description, updated_at, owner } =
@@ -73,6 +74,12 @@ const ResultField = ({ inputValue, setInputValue, clickRepo }) => {
 
   return data ? <>{getDataByStatus()}</> : null;
 };
+
+const ResultCount = styled.p`
+  text-align: left;
+  padding: 6px 0;
+  font-weight: 500;
+`;
 
 const Box = styled.div`
   display: flex;
