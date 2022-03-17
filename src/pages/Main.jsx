@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import styled from 'styled-components';
 import InputField from '../components/InputField';
 import ResultField from '../components/ResultField';
@@ -14,6 +14,7 @@ const Main = () => {
   const queryClient = new QueryClient();
   const [changeValue, setChangeValue] = useState('');
   const [inputValue, setInputValue] = useState('');
+  const [isShow, setIsShow] = useState(false);
   const [detailContent, setDetailContent] = useState({
     id: '',
     full_name: '',
@@ -39,6 +40,7 @@ const Main = () => {
 
   const clickRepo = detailContent => {
     setDetailContent(detailContent);
+    setIsShow(true);
   };
 
   return (
@@ -59,7 +61,11 @@ const Main = () => {
             clickRepo={clickRepo}
           />
         </Container>
-        <RepoDetail detailContent={detailContent} />
+        <RepoDetail
+          detailContent={detailContent}
+          isShow={isShow}
+          setIsShow={setIsShow}
+        />
         <NotificationMessage />
       </QueryClientProvider>
     </MainWrap>

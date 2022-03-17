@@ -1,8 +1,8 @@
 import React from 'react';
 import StoredRepository from './StoredRepository';
-// import List from './List';
-import styled from 'styled-components';
 import List from './List';
+import styled from 'styled-components';
+import { useSelector } from 'react-redux';
 
 const Container = styled.div`
   /* margin: 50px; */
@@ -18,10 +18,14 @@ const Title = styled.div`
 `;
 
 const StoredRepoContainer = () => {
+  const data = useSelector(state => state.data.store);
+  console.log(data);
   return (
     <Container>
       <Title>Stored Repository</Title>
-      <StoredRepository />
+      {data.map((obj, idx) => {
+        return <List key={idx} item={obj} type="stored" />;
+      })}
       {/* <List /> */}
     </Container>
   );
