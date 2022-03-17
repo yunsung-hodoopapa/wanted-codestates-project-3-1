@@ -11,6 +11,17 @@ const List = ({ type = 'repo', item, clickHandle }) => {
 
   if (type === 'issue') {
     const issue = item;
+  } else if (type === 'stored') {
+    const { id, full_name, description, updated_at, name, avatar_url } = item;
+    [itemId, title, imgUrl, text, date, owner_id, owner_name] = [
+      id,
+      full_name,
+      avatar_url,
+      description,
+      updated_at,
+      name,
+      owner_id,
+    ];
   } else {
     const { id, full_name, owner, description, updated_at, name } = item;
     [itemId, title, imgUrl, text, date, owner_id, owner_name] = [
