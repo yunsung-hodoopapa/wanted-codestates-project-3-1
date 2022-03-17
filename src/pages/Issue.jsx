@@ -9,6 +9,7 @@ import List from '../components/List';
 import { useIssueResults } from '../util/axios';
 import { useSelector } from 'react-redux';
 import Pagination from '../components/Pagination';
+import NotificationMessage from '../components/NotificationMessage';
 
 const Issue = () => {
   const queryClient = useQueryClient();
@@ -58,6 +59,7 @@ const Issue = () => {
           getSearchIssue(owner_id, owner_name)
         }
       />
+      <NotificationMessage />
     </MainWrap>
   );
 };
