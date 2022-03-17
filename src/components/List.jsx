@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { deleteRepo, storeRepo, notify } from '../redux/actionTypes';
-import NotificationMessage from './NotificationMessage';
 
 const List = ({ type = 'repo', item, clickHandle, searchIssue }) => {
   const dispatch = useDispatch();
@@ -52,7 +51,7 @@ const List = ({ type = 'repo', item, clickHandle, searchIssue }) => {
   const saveRepo = () => {
     if (isSave(itemId)) return;
     if (storedData.length >= 4) {
-      dispatch(notify('repository 저장 개수를 초과했습니다.', 1500));
+      dispatch(notify('repository 저장 개수를 초과했습니다.', 3000));
     } else {
       dispatch(
         storeRepo({
@@ -65,12 +64,13 @@ const List = ({ type = 'repo', item, clickHandle, searchIssue }) => {
           avatar_url: imgUrl,
         }),
       );
-      dispatch(notify('repository를 저장소에 저장했습니다.', 1500));
+      dispatch(notify('repository를 저장소에 저장했습니다.', 3000));
     }
   };
 
   const removeRepo = () => {
     dispatch(deleteRepo(itemId));
+    dispatch(notify('삭제 되었습니다.', 3000));
   };
 
   const isSave = id => {
