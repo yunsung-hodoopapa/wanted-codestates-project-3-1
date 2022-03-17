@@ -4,7 +4,6 @@ import Gnb from '../components/Gnb';
 import { MainWrap } from './Main';
 import { useQueryClient } from 'react-query';
 import StoredRepoContainer from '../components/StoredRepoContainer';
-import StoredRepository from '../components/StoredRepository';
 import List from '../components/List';
 import { useIssueResults } from '../util/axios';
 import { useSelector } from 'react-redux';
@@ -16,8 +15,8 @@ const Issue = () => {
   const stored = useSelector(state => state.data.store);
   const [state, setState] = useState([]);
   const { data, error, isFetching, isPreviousData, status } = useIssueResults(
-    state[0],
     state[1],
+    state[0],
   );
   console.log(data);
   const getSearchIssue = (owner_id, owner_name) => {
