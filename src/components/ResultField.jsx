@@ -2,9 +2,9 @@ import React, { useCallback, useState } from 'react';
 import styled from 'styled-components';
 import { useQueryClient } from 'react-query';
 import { useRepoResults } from '../util/axios';
+import PropTypes from 'prop-types';
 import Pagination from './Pagination';
 
-// eslint-disable-next-line react/prop-types
 const ResultField = ({ inputValue, setInputValue, clickRepo }) => {
   const queryClient = useQueryClient();
   const [page, setPage] = useState(1);
@@ -16,10 +16,6 @@ const ResultField = ({ inputValue, setInputValue, clickRepo }) => {
 
   const onHandleList = name => {
     setInputValue(name);
-  };
-
-  const onClickEvent = (id, full_name, description, updated_at, avatar_url) => {
-    clickRepo(id, full_name, description, updated_at, avatar_url);
   };
 
   const getDataByStatus = useCallback(() => {
@@ -36,19 +32,16 @@ const ResultField = ({ inputValue, setInputValue, clickRepo }) => {
                   const { id, full_name, description, updated_at, owner } =
                     item;
                   const { avatar_url } = owner;
+                  const detailData = {
+                    id,
+                    full_name,
+                    description,
+                    updated_at,
+                    owner,
+                    avatar_url,
+                  };
                   return (
-                    <Box
-                      key={id}
-                      onClick={() => {
-                        onClickEvent(
-                          id,
-                          full_name,
-                          description,
-                          updated_at,
-                          avatar_url,
-                        );
-                      }}
-                    >
+                    <Box key={id} onClick={() => clickRepo(detailData)}>
                       <Content>
                         <img src={avatar_url} alt={name} />
                         <div>
@@ -196,5 +189,11 @@ const Option = styled.div`
     }
   }
 `;
+
+ResultField.propTypes = {
+  inputValue: PropTypes.string,
+  setInputValue: PropTypes.string,
+  clickRepo: PropTypes.func,
+};
 
 export default ResultField;
