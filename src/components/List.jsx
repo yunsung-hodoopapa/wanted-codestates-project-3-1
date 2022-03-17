@@ -16,32 +16,26 @@ const List = ({ type = 'repo', item, clickHandle }) => {
   if (type === 'issue') {
     const issue = item;
   } else if (type === 'stored') {
-    const { id, full_name, description, updated_at, name, avatar_url } = item;
-    [itemId, title, imgUrl, text, date, owner_id, owner_name] = [
-      id,
-      full_name,
-      avatar_url,
-      description,
-      updated_at,
-      name,
-      owner_id,
-    ];
-  } else {
-    const { id, full_name, owner, description, updated_at, name } = item;
-    [itemId, title, imgUrl, text, date, owner_id, owner_name] = [
-      id,
-      full_name,
-      owner.avatar_url,
-      description,
-      updated_at,
-      owner.login,
-      name,
-    ];
+    itemId = item.id;
+    imgUrl = item.avatar_url;
+    title = item.full_name;
+    text = item.description;
+    owner_id = item.owner_id;
+    owner_name = item.name;
+    date = item.updated_at;
+  } else if (type === 'repo') {
+    itemId = item.id;
+    imgUrl = item.owner.avatar_url;
+    title = item.full_name;
+    text = item.description;
+    owner_id = item.name;
+    owner_name = item.owner.login;
+    date = item.updated_at;
   }
 
   const detailData = {
     id: itemId,
-    full_name: repoName,
+    full_name: title,
     description: text,
     updated_at: date,
     avatar_url: imgUrl,
@@ -118,6 +112,7 @@ const Box = styled.div`
 
 const Content = styled.div`
   display: flex;
+  width: 100%;
   img {
     width: 50px;
     height: 50px;

@@ -5,8 +5,8 @@ import { AiOutlineDoubleLeft, AiOutlineDoubleRight } from 'react-icons/ai';
 
 const PaginationComponent = styled.div`
   position: relative;
-  width: 300px;
-  margin: 0 auto;
+  width: 220px;
+  margin: 24px auto 0;
   ul {
     display: flex;
     margin: 0 auto;
