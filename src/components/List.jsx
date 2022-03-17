@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { deleteRepo, storeRepo, notify } from '../redux/actionTypes';
 import NotificationMessage from './NotificationMessage';
 
-const List = ({ type = 'repo', item, clickHandle }) => {
+const List = ({ type = 'repo', item, clickHandle, searchIssue }) => {
   const dispatch = useDispatch();
   let itemId, repoName, htmlUrl, imgUrl, title, text, date;
   let owner_id, owner_name;
@@ -44,6 +44,8 @@ const List = ({ type = 'repo', item, clickHandle }) => {
   const onClickEvent = () => {
     if (type === 'repo') {
       clickHandle(detailData);
+    } else if (type === 'stored') {
+      searchIssue(owner_id, owner_name);
     }
   };
 
@@ -231,6 +233,7 @@ List.propTypes = {
   type: PropTypes.string,
   item: PropTypes.object,
   clickHandle: PropTypes.func,
+  searchIssue: PropTypes.func,
 };
 
 export default List;
