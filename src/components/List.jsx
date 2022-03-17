@@ -1,20 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
+import { deleteRepo, storeRepo } from '../redux/actionTypes';
 
 const List = ({ type = 'repo', item, clickHandle }) => {
-  let itemId, repoName, htmlUrl, imgUrl, name, text, date;
+  const dispatch = useDispatch();
+  let itemId, repoName, htmlUrl, imgUrl, title, text, date;
+  let owner_id, owner_name;
 
   if (type === 'issue') {
     const issue = item;
   } else {
-    const { id, full_name, owner, description, updated_at } = item;
-    [itemId, name, imgUrl, text, date] = [
+    const { id, full_name, owner, description, updated_at, name } = item;
+    [itemId, title, imgUrl, text, date, owner_id, owner_name] = [
       id,
       full_name,
       owner.avatar_url,
       description,
       updated_at,
+      owner.login,
+      name,
     ];
   }
 
@@ -33,19 +39,29 @@ const List = ({ type = 'repo', item, clickHandle }) => {
   };
 
   const saveRepo = () => {
-    console.log('saveRepo');
+    dispatch(
+      storeRepo({
+        id: itemId,
+        owner_id,
+        name: owner_name,
+        full_name: title,
+        description: text,
+        updated_at: date,
+        avatar_url: imgUrl,
+      }),
+    );
   };
 
   const removeRepo = () => {
-    console.log('removeRepos');
+    dispatch(deleteRepo(itemId));
   };
 
   return (
-    <Box type={type} onClick={onClickEvent}>
-      <Content>
-        <img src={imgUrl} alt={name} />
+    <Box type={type}>
+      <Content onClick={onClickEvent}>
+        <img src={imgUrl} alt={title} />
         <div>
-          <h3>{name}</h3>
+          <h3>{title}</h3>
           <p>{text}</p>
           <span>{date}</span>
         </div>
