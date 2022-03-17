@@ -11,7 +11,6 @@ const ResultField = ({ inputValue, setInputValue }) => {
 
   const { data, error, isPreviousData, isFetching, status, isLoading } =
     useRepoResults(inputValue, page);
-
   const onHandleList = name => {
     setInputValue(name);
   };
