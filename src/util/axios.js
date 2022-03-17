@@ -24,7 +24,6 @@ const getIssue = async (owner, repo, page) => {
     const response = await axios.get(`/api/repos/${owner}/${repo}/issues`, {
       params: {
         page,
-        per_page: 7,
       },
       headers,
     });
