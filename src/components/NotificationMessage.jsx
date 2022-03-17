@@ -16,15 +16,17 @@ const MessageContainer = styled.div`
   // 테두리
   background-color: white;
   border: ${props =>
-    props.message === '내용입력'
+    props.message === 'repository를 저장소에 저장했습니다.'
       ? '2px solid #97a1ff'
-      : '2px solid red'}; // 바뀐다
+      : '2px solid #CA3D3D'}; // 바뀐다
   border-radius: 5px;
-  box-shadow: 1px 1px 10px 2px;
+  /* box-shadow: 1px 1px 3px 1px; */
 
   // 글씨
   color: ${props =>
-    props.message === '내용입력' ? '#97a1ff' : 'red'}; // 바뀐다
+    props.message === 'repository를 저장소에 저장했습니다.'
+      ? '#97a1ff'
+      : '#CA3D3D'}; // 바뀐다
   font-size: 18px;
   font-weight: bold;
 
