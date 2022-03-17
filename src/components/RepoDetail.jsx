@@ -1,16 +1,30 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import { MdClose } from 'react-icons/md';
 
-const RepoDetail = ({ detailContent }) => {
+const RepoDetail = ({ detailContent, isShow, setIsShow }) => {
   const { id, full_name, description, updated_at, avatar_url } = detailContent;
+
   return (
-    <Wrapper>
-      <ProfilePic img={avatar_url} />
-      <RepoName>{full_name}</RepoName>
-      <RepoDesc>{description}</RepoDesc>
-      <RepoUpdated>Updated on {updated_at}</RepoUpdated>
-    </Wrapper>
+    <>
+      {isShow ? (
+        <Wrapper>
+          <CloseBtn
+            onClick={() => {
+              setIsShow(false);
+            }}
+          >
+            <MdClose size={29} color={'#999'} />
+          </CloseBtn>
+          <ProfilePic img={avatar_url} />
+          <RepoName>{full_name}</RepoName>
+          <RepoDesc>{description}</RepoDesc>
+          <RepoUpdated>Updated at {updated_at}</RepoUpdated>
+          <SaveBtn>저 장</SaveBtn>
+        </Wrapper>
+      ) : null}
+    </>
   );
 };
 
@@ -22,6 +36,14 @@ const Wrapper = styled.nav`
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
+`;
+
+const CloseBtn = styled.div`
+  position: absolute;
+  top: 22px;
+  right: 28px;
+  cursor: pointer;
 `;
 
 const ProfilePic = styled.div`
@@ -42,20 +64,26 @@ const RepoName = styled.p`
   color: var(--main-blue);
   font-weight: 500;
   margin-bottom: 40px;
-  width: 400px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
+  width: 340px;
+  /* background-color: yellow; */
+  text-align: center;
+  /* text-overflow: ellipsis; */
+  /* white-space: nowrap; */
+  /* overflow: hidden; */
 `;
 
 const RepoDesc = styled.p`
   color: #666666;
-  font-size: 20px;
+  font-size: 18px;
   margin-bottom: 12px;
+  /* background-color: pink; */
+  text-align: center;
+  margin: 0 22px 12px 22px;
+  line-height: 1.2;
 `;
 
 const RepoUpdated = styled.p`
-  color: #8b8c93;
+  color: var(--dark-gray);
   font-size: 16px;
   margin-bottom: 60px;
 `;
@@ -77,6 +105,8 @@ const SaveBtn = styled.button`
 
 RepoDetail.propTypes = {
   detailContent: PropTypes.object,
+  isShow: PropTypes.bool,
+  setIsShow: PropTypes.func,
 };
 
 export default RepoDetail;
