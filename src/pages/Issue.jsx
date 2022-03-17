@@ -12,7 +12,9 @@ import Pagination from '../components/Pagination';
 
 const Issue = () => {
   const queryClient = useQueryClient();
+  // store에서 데이터를 받아온다.
   const stored = useSelector(state => state.data.repo)[0];
+  // store에서 구조할당 분해로 파라미터에 필요한 데이터를 뽑아온다.
   const { repoName, owner } = stored;
 
   const { data, error, isFetching, isPreviousData, status } = useIssueResults(
