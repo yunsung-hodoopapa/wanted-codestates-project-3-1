@@ -5,42 +5,36 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { deleteRepo, storeRepo, notify } from '../redux/actionTypes';
 
-const List = ({ type = 'repo', item, clickHandle }) => {
+const List = ({ type = 'repo', item, clickHandle, searchIssue }) => {
   const dispatch = useDispatch();
   let itemId, repoName, htmlUrl, imgUrl, title, text, date;
   let owner_id, owner_name;
 
-  const StoredData = useSelector(state => state.data.store);
+  const storedData = useSelector(state => state.data.store);
 
   if (type === 'issue') {
     const issue = item;
   } else if (type === 'stored') {
-    const { id, full_name, description, updated_at, name, avatar_url } = item;
-    [itemId, title, imgUrl, text, date, owner_id, owner_name] = [
-      id,
-      full_name,
-      avatar_url,
-      description,
-      updated_at,
-      name,
-      owner_id,
-    ];
-  } else {
-    const { id, full_name, owner, description, updated_at, name } = item;
-    [itemId, title, imgUrl, text, date, owner_id, owner_name] = [
-      id,
-      full_name,
-      owner.avatar_url,
-      description,
-      updated_at,
-      owner.login,
-      name,
-    ];
+    itemId = item.id;
+    imgUrl = item.avatar_url;
+    title = item.full_name;
+    text = item.description;
+    owner_id = item.owner_id;
+    owner_name = item.name;
+    date = item.updated_at;
+  } else if (type === 'repo') {
+    itemId = item.id;
+    imgUrl = item.owner.avatar_url;
+    title = item.full_name;
+    text = item.description;
+    owner_id = item.name;
+    owner_name = item.owner.login;
+    date = item.updated_at;
   }
 
   const detailData = {
     id: itemId,
-    full_name: repoName,
+    full_name: title,
     description: text,
     updated_at: date,
     avatar_url: imgUrl,
@@ -49,11 +43,14 @@ const List = ({ type = 'repo', item, clickHandle }) => {
   const onClickEvent = () => {
     if (type === 'repo') {
       clickHandle(detailData);
+    } else if (type === 'stored') {
+      searchIssue(owner_id, owner_name);
     }
   };
 
   const saveRepo = () => {
-    if (StoredData.length >= 4) {
+    if (isSave(itemId)) return;
+    if (storedData.length >= 4) {
       dispatch(notify('repository 저장 개수를 초과했습니다.', 3000));
     } else {
       dispatch(
@@ -76,6 +73,14 @@ const List = ({ type = 'repo', item, clickHandle }) => {
     dispatch(notify('삭제 되었습니다.', 3000));
   };
 
+  const isSave = id => {
+    return storedData.some(data => {
+      if (data.id === id) {
+        return true;
+      }
+    });
+  };
+
   return (
     <Box type={type}>
       <Content onClick={onClickEvent}>
@@ -87,7 +92,14 @@ const List = ({ type = 'repo', item, clickHandle }) => {
         </div>
       </Content>
       <Option>
-        {type === 'repo' ? <button onClick={saveRepo}>저 장</button> : null}
+        {type === 'repo' ? (
+          <button
+            onClick={saveRepo}
+            className={isSave(itemId) ? 'registered' : null}
+          >
+            저 장
+          </button>
+        ) : null}
         {type === 'issue' ? <p>{repoName}</p> : null}
         {type === 'stored' ? <i onClick={removeRepo}></i> : null}
       </Option>
@@ -175,6 +187,11 @@ const Option = styled.div`
   .registered {
     color: #8b8c93;
     background-color: #d4d5dd;
+    cursor: default;
+    &:hover {
+      color: #8b8c93;
+      background-color: #d4d5dd;
+    }
   }
   //repoName
   p {
@@ -216,6 +233,7 @@ List.propTypes = {
   type: PropTypes.string,
   item: PropTypes.object,
   clickHandle: PropTypes.func,
+  searchIssue: PropTypes.func,
 };
 
 export default List;

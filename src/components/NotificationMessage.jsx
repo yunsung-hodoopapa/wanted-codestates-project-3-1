@@ -34,7 +34,7 @@ const MessageContainer = styled.div`
   text-align: center;
 
   // 효과
-  animation: moveToRight 7s;
+  animation: moveToRight 5s;
 
   @keyframes moveToRight {
     25% {

@@ -1,14 +1,12 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState} from 'react';
 import styled from 'styled-components';
 import InputField from '../components/InputField';
 import ResultField from '../components/ResultField';
 import Gnb from '../components/Gnb';
 import RepoDetail from '../components/RepoDetail';
-import { QueryClientProvider, QueryClient } from 'react-query';
 import NotificationMessage from '../components/NotificationMessage';
 
 const Main = () => {
-  const queryClient = new QueryClient();
   const [changeValue, setChangeValue] = useState('');
   const [inputValue, setInputValue] = useState('');
   const [isShow, setIsShow] = useState(false);
@@ -42,29 +40,27 @@ const Main = () => {
 
   return (
     <MainWrap>
-      <QueryClientProvider client={queryClient}>
-        <Gnb />
-        <Container>
-          <InputField
-            changeValue={changeValue}
-            onChange={onChange}
-            onKeyPress={clickKey}
-            clickBtn={clickBtn}
-          />
-          <br />
-          <ResultField
-            inputValue={inputValue}
-            setInputValue={setInputValue}
-            clickRepo={clickRepo}
-          />
-        </Container>
-        <RepoDetail
-          detailContent={detailContent}
-          isShow={isShow}
-          setIsShow={setIsShow}
+      <Gnb />
+      <Container>
+        <InputField
+          changeValue={changeValue}
+          onChange={onChange}
+          onKeyPress={clickKey}
+          clickBtn={clickBtn}
         />
-        <NotificationMessage />
-      </QueryClientProvider>
+        <br />
+        <ResultField
+          inputValue={inputValue}
+          setInputValue={setInputValue}
+          clickRepo={clickRepo}
+        />
+      </Container>
+      <RepoDetail
+        detailContent={detailContent}
+        isShow={isShow}
+        setIsShow={setIsShow}
+      />
+      <NotificationMessage />
     </MainWrap>
   );
 };
