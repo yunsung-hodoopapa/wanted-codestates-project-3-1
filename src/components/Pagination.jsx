@@ -10,7 +10,7 @@ const PaginationComponent = styled.div`
   ul {
     display: flex;
     margin: 0 auto;
-    width: 140px;
+    width: 180px;
     margin: 0 auto;
     justify-content: center;
     overflow: hidden;
@@ -55,7 +55,7 @@ const PaginationComponent = styled.div`
   }
 `;
 
-const Pagination = ({page, setPage, totalCount}) => {
+const Pagination = ({ page, setPage, totalCount, isPreviousData }) => {
   const [totalPage, setTotalPage] = useState([]);
   const [fivePage, setFivePage] = useState(0);
   const totalPageCount = Math.ceil(totalCount / 7);
@@ -74,7 +74,10 @@ const Pagination = ({page, setPage, totalCount}) => {
     } else {
       setFivePage(fivePage + 1);
     }
+    setPage(fivePage);
   };
+
+  useEffect(() => {}, [page]);
 
   return (
     <>
@@ -84,7 +87,10 @@ const Pagination = ({page, setPage, totalCount}) => {
           <button onClick={() => handlePageCount(true)} disabled={page === 1}>
             <AiOutlineDoubleLeft />
           </button>
-          <button onClick={() => handlePageCount(false)}>
+          <button
+            onClick={() => handlePageCount(false)}
+            disabled={isPreviousData}
+          >
             <AiOutlineDoubleRight />
           </button>
         </div>
@@ -111,6 +117,7 @@ Pagination.propTypes = {
   page: PropTypes.number,
   setPage: PropTypes.func,
   totalCount: PropTypes.number,
+  isPreviousData: PropTypes.bool,
 };
 
 export default Pagination;

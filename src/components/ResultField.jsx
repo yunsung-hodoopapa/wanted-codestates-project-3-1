@@ -9,8 +9,10 @@ const ResultField = ({ inputValue, setInputValue }) => {
   const queryClient = useQueryClient();
   const [page, setPage] = useState(1);
 
-  const { data, error, isPreviousData, isFetching, status, isLoading } =
-    useRepoResults(inputValue, page);
+  const { data, error, isFetching, isPreviousData, status } = useRepoResults(
+    inputValue,
+    page,
+  );
 
   const onHandleList = name => {
     setInputValue(name);
@@ -19,6 +21,8 @@ const ResultField = ({ inputValue, setInputValue }) => {
   const onClickEvent = () => {
     console.log('이동 준비중');
   };
+
+  console.log(isPreviousData);
 
   const getDataByStatus = useCallback(() => {
     switch (status) {
@@ -55,6 +59,7 @@ const ResultField = ({ inputValue, setInputValue }) => {
                 page={page}
                 setPage={setPage}
                 totalCount={data.total_count}
+                isPreviousData={isPreviousData}
               />
             ) : null}
             {isFetching ? <span>Loading...</span> : null}

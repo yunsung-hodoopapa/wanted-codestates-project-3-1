@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { MdSearch } from 'react-icons/md';
+import { useQueryClient } from 'react-query';
+import { useRepoResults } from '../util/axios';
 
 // eslint-disable-next-line react/prop-types
 const InputField = ({ onChangeInput, inputValue }) => {
+
   return (
     <Wrapper>
       <Input
@@ -13,7 +16,7 @@ const InputField = ({ onChangeInput, inputValue }) => {
         placeholder="search"
       />
       <Button>
-        <MdSearch size={25} color="black" />
+        <MdSearch size={25} color="black"/>
       </Button>
     </Wrapper>
   );
