@@ -37,14 +37,20 @@ $ npm run start
 
 ### Repository 검색 및 페이지네이션
 
+![1](https://user-images.githubusercontent.com/62285862/158803786-08652607-b42f-49a6-bb53-40c492c8009f.gif)
+
 - React-query, axios를 사용하여 데이터를 받는다.(GitHub Open API)
 
 ### Repository 등록, 삭제
+
+![2](https://user-images.githubusercontent.com/62285862/158803938-ebb8b2ac-e188-4ea5-8bd2-88a8a5b4f607.gif)
 
 - localStorage를 사용한 등록, 삭제
 - 등록, 삭제, 초과 시 안내 메시지를 보여준다.
 
 ### Repository 이슈
+
+![3](https://user-images.githubusercontent.com/62285862/158803977-079354fe-cef8-48f0-b087-5f63e0d1a3fe.gif)
 
 - 해당 issue를 클릭하면 Github의 상세 페이지로 이동
 - issue 페이지네이션
