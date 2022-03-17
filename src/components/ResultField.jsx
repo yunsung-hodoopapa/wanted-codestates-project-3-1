@@ -47,7 +47,7 @@ const ResultField = ({ inputValue, setInputValue, clickRepo }) => {
                         <div>
                           <h3>{full_name}</h3>
                           <p>{description}</p>
-                          <span>{updated_at}</span>
+                          <span>updated_at {updated_at.split('T')[0]}</span>
                         </div>
                       </Content>
                       <Option>
