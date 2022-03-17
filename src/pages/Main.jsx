@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import InputField from '../components/InputField';
 import ResultField from '../components/ResultField';

@@ -23,6 +23,7 @@ const Issue = () => {
   const getSearchIssue = (owner_id, owner_name) => {
     setState([owner_id, owner_name]);
   };
+  console.log(data);
   const getIssueByStatus = useCallback(() => {
     switch (status) {
       case 'loading':
@@ -36,18 +37,20 @@ const Issue = () => {
       default:
         return (
           <>
-            {data
-              ? data.map(item => {
-                  return (
-                    <List
-                      type={'issue'}
-                      key={item.id}
-                      item={item}
-                      repoNameProp={state}
-                    />
-                  );
-                })
-              : null}
+            {data ? (
+              data.map(item => {
+                return (
+                  <List
+                    type={'issue'}
+                    key={item.id}
+                    item={item}
+                    repoNameProp={state}
+                  />
+                );
+              })
+            ) : (
+              <div>왜 안나오지</div>
+            )}
             {/* {data.total_count ? (
               <Pagination
                 page={page}

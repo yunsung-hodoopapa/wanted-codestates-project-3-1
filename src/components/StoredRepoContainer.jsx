@@ -5,17 +5,17 @@ import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
 const Container = styled.div`
-  /* margin: 50px; */
   background-color: white;
-  width: 500px;
+  width: 440px;
   min-height: 100vh;
   overflow: hidden;
+  padding: 30px;
 `;
 
 const Title = styled.div`
-  margin: 30px;
   font-size: 22px;
   font-weight: bold;
+  margin-bottom: 30px;
 `;
 
 const StoredRepoContainer = ({ getSearchIssue }) => {
