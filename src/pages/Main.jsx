@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState} from 'react';
 import styled from 'styled-components';
 import InputField from '../components/InputField';
 import ResultField from '../components/ResultField';
 import Gnb from '../components/Gnb';
-import List from '../components/List';
 import RepoDetail from '../components/RepoDetail';
-import Pagination from '../components/Pagination';
+import NotificationMessage from '../components/NotificationMessage';
 
 const Main = () => {
   const [changeValue, setChangeValue] = useState('');
   const [inputValue, setInputValue] = useState('');
+  const [isShow, setIsShow] = useState(false);
   const [detailContent, setDetailContent] = useState({
     id: '',
     full_name: '',
@@ -35,6 +35,7 @@ const Main = () => {
 
   const clickRepo = detailContent => {
     setDetailContent(detailContent);
+    setIsShow(true);
   };
 
   return (
@@ -54,7 +55,12 @@ const Main = () => {
           clickRepo={clickRepo}
         />
       </Container>
-      <RepoDetail detailContent={detailContent} />
+      <RepoDetail
+        detailContent={detailContent}
+        isShow={isShow}
+        setIsShow={setIsShow}
+      />
+      <NotificationMessage />
     </MainWrap>
   );
 };

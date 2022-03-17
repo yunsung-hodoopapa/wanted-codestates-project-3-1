@@ -1,27 +1,41 @@
-import React, { useCallback, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { deleteRepo, storeRepo, notify } from '../redux/actionTypes';
+import NotificationMessage from './NotificationMessage';
 
 const List = ({ type = 'repo', item, clickHandle }) => {
-  let itemId, repoName, htmlUrl, imgUrl, name, text, date;
+  const dispatch = useDispatch();
+  let itemId, repoName, htmlUrl, imgUrl, title, text, date;
+  let owner_id, owner_name;
+
+  const StoredData = useSelector(state => state.data.store);
 
   if (type === 'issue') {
-    const {id, body, html_url, repository_url} = item;
-  } else {
-    const { id, full_name, owner, description, updated_at } = item;
-
-    [itemId, name, imgUrl, text, date] = [
-      id,
-      full_name,
-      owner.avatar_url,
-      description,
-      updated_at,
-    ];
+    const issue = item;
+  } else if (type === 'stored') {
+    itemId = item.id;
+    imgUrl = item.avatar_url;
+    title = item.full_name;
+    text = item.description;
+    owner_id = item.owner_id;
+    owner_name = item.name;
+    date = item.updated_at;
+  } else if (type === 'repo') {
+    itemId = item.id;
+    imgUrl = item.owner.avatar_url;
+    title = item.full_name;
+    text = item.description;
+    owner_id = item.name;
+    owner_name = item.owner.login;
+    date = item.updated_at;
   }
 
   const detailData = {
     id: itemId,
-    full_name: repoName,
+    full_name: title,
     description: text,
     updated_at: date,
     avatar_url: imgUrl,
@@ -34,22 +48,36 @@ const List = ({ type = 'repo', item, clickHandle }) => {
   };
 
   const saveRepo = () => {
-    console.log('saveRepo');
-    console.log(item);
+    if (StoredData.length >= 4) {
+      dispatch(notify('repository 저장 개수를 초과했습니다.', 1500));
+    } else {
+      dispatch(
+        storeRepo({
+          id: itemId,
+          owner_id,
+          name: owner_name,
+          full_name: title,
+          description: text,
+          updated_at: date,
+          avatar_url: imgUrl,
+        }),
+      );
+      dispatch(notify('repository를 저장소에 저장했습니다.', 1500));
+    }
   };
 
   const removeRepo = () => {
-    console.log('removeRepos');
+    dispatch(deleteRepo(itemId));
   };
 
   return (
-    <Box type={type} onClick={onClickEvent}>
-      <Content>
-        <img src={imgUrl} alt={name} />
+    <Box type={type}>
+      <Content onClick={onClickEvent}>
+        <img src={imgUrl} alt={title} />
         <div>
-          <h3>{name}</h3>
+          <h3>{title}</h3>
           <p>{text}</p>
-          <span>{date}</span>
+          <span>updated_at {date.split('T')[0]}</span>
         </div>
       </Content>
       <Option>
@@ -84,6 +112,7 @@ const Box = styled.div`
 
 const Content = styled.div`
   display: flex;
+  width: 100%;
   img {
     width: 50px;
     height: 50px;

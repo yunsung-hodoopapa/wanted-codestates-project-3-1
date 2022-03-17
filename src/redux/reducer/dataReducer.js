@@ -1,8 +1,14 @@
-import { GET_REPO_DATA, GET_ISSUE_DATA } from '../actionTypes';
+import { getItem } from '../../util/localStorage';
+import {
+  GET_REPO_DATA,
+  GET_ISSUE_DATA,
+  STORE_REPO,
+  DELETE_REPO,
+} from '../actionTypes';
 
 const initialState = {
-  repo: [{ repoName: 'react', owner: 'facebook' }],
   issue: [],
+  store: getItem('store') || [],
 };
 
 export const dataReducer = (state = initialState, action) => {
@@ -19,6 +25,19 @@ export const dataReducer = (state = initialState, action) => {
         data: [...state, action.data],
       };
     }
+    case STORE_REPO: {
+      return {
+        ...state,
+        store: action.payload.items,
+      };
+    }
+    case DELETE_REPO: {
+      return {
+        ...state,
+        store: action.payload.items,
+      };
+    }
+
     default: {
       return state;
     }

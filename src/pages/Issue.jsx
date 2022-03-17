@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 import Gnb from '../components/Gnb';
 import { MainWrap } from './Main';
@@ -11,18 +11,12 @@ import { useSelector } from 'react-redux';
 import Pagination from '../components/Pagination';
 
 const Issue = () => {
+  const [param, setParam] = useState('');
   const queryClient = useQueryClient();
-  // store에서 데이터를 받아온다.
-  const stored = useSelector(state => state.data.repo)[0];
-  // store에서 구조할당 분해로 파라미터에 필요한 데이터를 뽑아온다.
-  const { repoName, owner } = stored;
+  const stored = useSelector(state => state.data.store);
 
-  const { data, error, isFetching, isPreviousData, status } = useIssueResults(
-    owner,
-    repoName,
-  );
+  const { data, error, isFetching, isPreviousData, status } = useIssueResults();
 
-  console.log(data);
 
   const getIssueByStatus = useCallback(() => {
     switch (status) {
@@ -34,7 +28,9 @@ const Issue = () => {
         return (
           <>
             {data
-              ? data.map(item => <List type={'issue'} key={item.id} item={item} />)
+              ? data.map(item => (
+                  <List type={'issue'} key={item.id} item={item} />
+                ))
               : null}
             {/* {data.total_count ? (
               <Pagination
