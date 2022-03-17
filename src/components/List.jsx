@@ -34,6 +34,8 @@ const List = ({ type = 'repo', item, clickHandle, searchIssue }) => {
 
   const detailData = {
     id: itemId,
+    owner_id,
+    name: owner_name,
     full_name: title,
     description: text,
     updated_at: date,
@@ -53,17 +55,7 @@ const List = ({ type = 'repo', item, clickHandle, searchIssue }) => {
     if (storedData.length >= 4) {
       dispatch(notify('repository 저장 개수를 초과했습니다.', 3000));
     } else {
-      dispatch(
-        storeRepo({
-          id: itemId,
-          owner_id,
-          name: owner_name,
-          full_name: title,
-          description: text,
-          updated_at: date,
-          avatar_url: imgUrl,
-        }),
-      );
+      dispatch(storeRepo(detailData));
       dispatch(notify('repository를 저장소에 저장했습니다.', 3000));
     }
   };

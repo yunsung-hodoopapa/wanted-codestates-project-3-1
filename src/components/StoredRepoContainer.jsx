@@ -9,10 +9,11 @@ const Container = styled.div`
   background-color: white;
   width: 500px;
   min-height: 100vh;
+  overflow: hidden;
 `;
 
 const Title = styled.div`
-  margin: 50px;
+  margin: 30px;
   font-size: 22px;
   font-weight: bold;
 `;
