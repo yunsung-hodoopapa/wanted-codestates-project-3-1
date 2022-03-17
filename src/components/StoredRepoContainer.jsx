@@ -24,15 +24,25 @@ const StoredRepoContainer = ({ getSearchIssue }) => {
   const searchIssue = (owner_id, owner_name) => {
     getSearchIssue(owner_id, owner_name);
   };
+
   return (
     <Container>
       <Title>Stored Repository</Title>
-      {storeData.map((obj, idx) => {
-        return (
-          <List key={idx} item={obj} type="stored" searchIssue={searchIssue} />
-        );
-      })}
-      {/* <List /> */}
+      {storeData.length ? (
+        storeData.map((obj, idx) => {
+          return (
+            <List
+              key={idx}
+              idx={idx}
+              item={obj}
+              type="stored"
+              searchIssue={searchIssue}
+            />
+          );
+        })
+      ) : (
+        <p>저장된 레포지토리가 없습니다.</p>
+      )}
     </Container>
   );
 };
