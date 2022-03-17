@@ -45,7 +45,7 @@ const List = ({ type = 'repo', item, clickHandle, searchIssue }) => {
     if (type === 'repo') {
       clickHandle(detailData);
     } else if (type === 'stored') {
-      searchIssue(owner, owner_name);
+      searchIssue(owner_id, owner_name);
     }
   };
 
