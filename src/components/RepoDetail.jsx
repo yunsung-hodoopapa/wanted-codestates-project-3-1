@@ -1,13 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
-const RepoDetail = () => {
+const RepoDetail = ({ detailContent }) => {
+  const { id, full_name, description, updated_at, avatar_url } = detailContent;
   return (
     <Wrapper>
-      <ProfilePic />
-      <RepoName>user_name/selected_repo_name=fullname</RepoName>
-      <RepoDesc>repo description repo description</RepoDesc>
-      <RepoUpdated>Updated on 2022-01-18</RepoUpdated>
+      <ProfilePic img={avatar_url} />
+      <RepoName>{full_name}</RepoName>
+      <RepoDesc>{description}</RepoDesc>
+      <RepoUpdated>Updated on {updated_at}</RepoUpdated>
       <SaveBtn>저 장</SaveBtn>
     </Wrapper>
   );
@@ -24,6 +26,10 @@ const Wrapper = styled.nav`
 `;
 
 const ProfilePic = styled.div`
+  background-image: url(${({ img }) => img});
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 150px;
   width: 150px;
   height: 150px;
   border-radius: 50%;
@@ -69,4 +75,9 @@ const SaveBtn = styled.button`
     background-color: var(--sub-blue);
   }
 `;
+
+RepoDetail.propTypes = {
+  detailContent: PropTypes.object,
+};
+
 export default RepoDetail;
