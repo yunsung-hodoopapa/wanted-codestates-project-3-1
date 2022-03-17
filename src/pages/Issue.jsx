@@ -18,7 +18,6 @@ const Issue = () => {
     state[1],
     state[0],
   );
-  console.log(data);
   const getSearchIssue = (owner_id, owner_name) => {
     setState([owner_id, owner_name]);
   };
@@ -31,11 +30,18 @@ const Issue = () => {
       default:
         return (
           <>
-            {/* {data
-              ? data.map(item => (
-                  // <List type={'issue'} key={item.id} item={item} />
-                ))
-              : null} */}
+            {data
+              ? data.map(item => {
+                  return (
+                    <List
+                      type={'issue'}
+                      key={item.id}
+                      item={item}
+                      repoNameProp={state}
+                    />
+                  );
+                })
+              : null}
             {/* {data.total_count ? (
               <Pagination
                 page={page}
