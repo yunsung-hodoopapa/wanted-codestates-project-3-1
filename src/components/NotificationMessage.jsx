@@ -48,7 +48,6 @@ const MessageContainer = styled.div`
 
 const NotificationMessage = () => {
   const message = useSelector(state => state.notice.message);
-  console.log(message);
   return (
     <div>
       {message.map((el, index) => {
