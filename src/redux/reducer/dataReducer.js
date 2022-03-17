@@ -7,7 +7,6 @@ import {
 } from '../actionTypes';
 
 const initialState = {
-  repo: [],
   issue: [],
   store: getItem('store') || [],
 };
