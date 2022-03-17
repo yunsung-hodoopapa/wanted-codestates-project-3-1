@@ -17,7 +17,6 @@ const Issue = () => {
 
   const { data, error, isFetching, isPreviousData, status } = useIssueResults();
 
-
   const getIssueByStatus = useCallback(() => {
     switch (status) {
       case 'loading':
