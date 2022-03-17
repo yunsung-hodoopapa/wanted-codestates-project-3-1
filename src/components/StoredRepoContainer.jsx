@@ -29,7 +29,13 @@ const StoredRepoContainer = ({ getSearchIssue }) => {
       <Title>Stored Repository</Title>
       {storeData.map((obj, idx) => {
         return (
-          <List key={idx} item={obj} type="stored" searchIssue={searchIssue} />
+          <List
+            key={idx}
+            idx={idx}
+            item={obj}
+            type="stored"
+            searchIssue={searchIssue}
+          />
         );
       })}
       {/* <List /> */}

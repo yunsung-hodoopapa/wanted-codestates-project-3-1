@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
@@ -11,6 +11,7 @@ const List = ({
   clickHandle,
   searchIssue,
   repoNameProp,
+  idx,
 }) => {
   const dispatch = useDispatch();
   let itemId, repoName, htmlUrl, imgUrl, title, text, date;
@@ -52,6 +53,10 @@ const List = ({
     updated_at: date,
     avatar_url: imgUrl,
   };
+
+  useEffect(() => {
+    if (type === 'stored' && idx === 0) searchIssue(owner_id, owner_name);
+  }, []);
 
   const onClickEvent = () => {
     if (type === 'repo') {
@@ -244,6 +249,7 @@ List.propTypes = {
   clickHandle: PropTypes.func,
   searchIssue: PropTypes.func,
   repoNameProp: PropTypes.array,
+  idx: PropTypes.number,
 };
 
 export default List;
