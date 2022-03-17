@@ -11,12 +11,16 @@ import { useSelector } from 'react-redux';
 import Pagination from '../components/Pagination';
 
 const Issue = () => {
-  const [param, setParam] = useState('');
   const queryClient = useQueryClient();
   const stored = useSelector(state => state.data.store);
-
-  const { data, error, isFetching, isPreviousData, status } = useIssueResults();
-
+  const [state, setState] = useState([]);
+  const { data, error, isFetching, isPreviousData, status } = useIssueResults(
+    state[0],
+    state[1],
+  );
+  const getSearchIssue = (owner_id, owner_name) => {
+    setState([owner_id, owner_name]);
+  };
   const getIssueByStatus = useCallback(() => {
     switch (status) {
       case 'loading':
@@ -26,11 +30,11 @@ const Issue = () => {
       default:
         return (
           <>
-            {data
+            {/* {data
               ? data.map(item => (
-                  <List type={'issue'} key={item.id} item={item} />
+                  // <List type={'issue'} key={item.id} item={item} />
                 ))
-              : null}
+              : null} */}
             {/* {data.total_count ? (
               <Pagination
                 page={page}
@@ -49,7 +53,11 @@ const Issue = () => {
     <MainWrap>
       <Gnb />
       <Container>{data ? <>{getIssueByStatus()}</> : null}</Container>
-      <StoredRepoContainer />
+      <StoredRepoContainer
+        getSearchIssue={(owner_id, owner_name) =>
+          getSearchIssue(owner_id, owner_name)
+        }
+      />
     </MainWrap>
   );
 };
