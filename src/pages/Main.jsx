@@ -1,16 +1,13 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import InputField from '../components/InputField';
 import ResultField from '../components/ResultField';
-import { debounce } from '../util/index';
 import Gnb from '../components/Gnb';
 import List from '../components/List';
 import RepoDetail from '../components/RepoDetail';
-import { QueryClientProvider, QueryClient } from 'react-query';
 import Pagination from '../components/Pagination';
 
 const Main = () => {
-  const queryClient = new QueryClient();
   const [changeValue, setChangeValue] = useState('');
   const [inputValue, setInputValue] = useState('');
   const [detailContent, setDetailContent] = useState({
@@ -36,30 +33,28 @@ const Main = () => {
     searchInput(changeValue);
   };
 
-  const clickRepo = (detailContent) => {
+  const clickRepo = detailContent => {
     setDetailContent(detailContent);
   };
 
   return (
     <MainWrap>
-      <QueryClientProvider client={queryClient}>
-        <Gnb />
-        <Container>
-          <InputField
-            changeValue={changeValue}
-            onChange={onChange}
-            onKeyPress={clickKey}
-            clickBtn={clickBtn}
-          />
-          <br />
-          <ResultField
-            inputValue={inputValue}
-            setInputValue={setInputValue}
-            clickRepo={clickRepo}
-          />
-        </Container>
-        <RepoDetail detailContent={detailContent} />
-      </QueryClientProvider>
+      <Gnb />
+      <Container>
+        <InputField
+          changeValue={changeValue}
+          onChange={onChange}
+          onKeyPress={clickKey}
+          clickBtn={clickBtn}
+        />
+        <br />
+        <ResultField
+          inputValue={inputValue}
+          setInputValue={setInputValue}
+          clickRepo={clickRepo}
+        />
+      </Container>
+      <RepoDetail detailContent={detailContent} />
     </MainWrap>
   );
 };

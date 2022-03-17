@@ -4,6 +4,7 @@ import { useQueryClient } from 'react-query';
 import { useRepoResults } from '../util/axios';
 import PropTypes from 'prop-types';
 import Pagination from './Pagination';
+import List from './List';
 
 const ResultField = ({ inputValue, setInputValue, clickRepo }) => {
   const queryClient = useQueryClient();
@@ -28,34 +29,9 @@ const ResultField = ({ inputValue, setInputValue, clickRepo }) => {
         return (
           <>
             {data
-              ? data.items?.map(item => {
-                  const { id, full_name, description, updated_at, owner } =
-                    item;
-                  const { avatar_url } = owner;
-                  const detailData = {
-                    id,
-                    full_name,
-                    description,
-                    updated_at,
-                    owner,
-                    avatar_url,
-                  };
-                  return (
-                    <Box key={id} onClick={() => clickRepo(detailData)}>
-                      <Content>
-                        <img src={avatar_url} alt="avatar_image" />
-                        <div>
-                          <h3>{full_name}</h3>
-                          <p>{description}</p>
-                          <span>{updated_at}</span>
-                        </div>
-                      </Content>
-                      <Option>
-                        <button>저 장</button>
-                      </Option>
-                    </Box>
-                  );
-                })
+              ? data.items?.map(item => (
+                  <List key={item.id} clickHandle={clickRepo} item={item} />
+                ))
               : null}
             {data.total_count ? (
               <Pagination
