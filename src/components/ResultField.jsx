@@ -168,7 +168,7 @@ const Option = styled.div`
 
 ResultField.propTypes = {
   inputValue: PropTypes.string,
-  setInputValue: PropTypes.string,
+  setInputValue: PropTypes.func,
   clickRepo: PropTypes.func,
 };
 
