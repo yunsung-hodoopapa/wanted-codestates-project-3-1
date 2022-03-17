@@ -19,9 +19,13 @@ const getRepository = async (keyword, page) => {
   }
 };
 
-const getIssue = async (owner, repo) => {
+const getIssue = async (owner, repo, page) => {
   try {
     const response = await axios.get(`/api/repos/${owner}/${repo}/issues`, {
+      params: {
+        page,
+        per_page: 7,
+      },
       headers,
     });
     const issueData = response.data;
@@ -44,11 +48,11 @@ export const useRepoResults = (keyword, page) => {
   );
 };
 
-export const useIssueResults = (owner, repo) => {
+export const useIssueResults = (owner, repo, page) => {
   return useQuery(
     ['owner', owner, repo],
     () => {
-      return getIssue(owner, repo);
+      return getIssue(owner, repo, page);
     },
     {
       enabled: !!owner,
