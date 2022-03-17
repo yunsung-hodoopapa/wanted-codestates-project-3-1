@@ -1,7 +1,8 @@
-import React from 'react';
-import StoredRepository from './StoredRepository';
-// import List from './List';
+import React, { useState } from 'react';
+import List from './List';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 
 const Container = styled.div`
   /* margin: 50px; */
@@ -16,14 +17,26 @@ const Title = styled.div`
   font-weight: bold;
 `;
 
-const StoredRepoContainer = () => {
+const StoredRepoContainer = ({ getSearchIssue }) => {
+  const storeData = useSelector(state => state.data.store);
+
+  const searchIssue = (owner_id, owner_name) => {
+    getSearchIssue(owner_id, owner_name);
+  };
   return (
     <Container>
       <Title>Stored Repository</Title>
-      <StoredRepository />
+      {storeData.map((obj, idx) => {
+        return (
+          <List key={idx} item={obj} type="stored" searchIssue={searchIssue} />
+        );
+      })}
       {/* <List /> */}
     </Container>
   );
+};
+StoredRepoContainer.propTypes = {
+  getSearchIssue: PropTypes.func,
 };
 
 export default StoredRepoContainer;

@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useQuery } from 'react-query';
 import { headers } from '../constants/index';
 
-export const getRepository = async (keyword, page) => {
+const getRepository = async (keyword, page) => {
   try {
     const response = await axios.get(`/api/search/repositories`, {
       params: {
@@ -22,14 +22,13 @@ export const getRepository = async (keyword, page) => {
 
 const getIssue = async (owner, repo) => {
   try {
+    console.log('here');
+    console.log('owner');
+    console.log('repo');
     const response = await axios.get(`/api/repos/${owner}/${repo}/issues`, {
-      params: {
-        owner,
-        repo,
-        headers,
-      },
+      headers,
     });
-    const issueData = response.body;
+    const issueData = response.data;
     return issueData;
   } catch (error) {
     console.error(error);
@@ -50,8 +49,14 @@ export const useRepoResults = (keyword, page) => {
 };
 
 export const useIssueResults = (owner, repo) => {
-  return useQuery(['owner', owner], () => getIssue(owner, repo), {
-    enabled: !!owner,
-    keepPreviousData: true,
-  });
+  return useQuery(
+    ['owner', owner, repo],
+    () => {
+      return getIssue(owner, repo);
+    },
+    {
+      enabled: !!owner,
+      keepPreviousData: true,
+    },
+  );
 };

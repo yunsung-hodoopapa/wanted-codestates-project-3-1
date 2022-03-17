@@ -11,7 +11,7 @@ const InputField = ({ changeValue, onKeyPress, onChange, clickBtn }) => {
       <Input
         type="text"
         onKeyPress={onKeyPress}
-        placeholder="레포를 찾아봅시다."
+        placeholder="레포지토리를 검색해보세요."
         value={changeValue}
         onChange={onChange}
       />

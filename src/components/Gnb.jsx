@@ -48,7 +48,7 @@ const Gnb = () => {
 const Wrapper = styled.nav`
   background-color: #fff;
   width: 100%;
-  max-width: 380px;
+  max-width: 370px;
   min-height: 100vh;
   > svg {
     margin: 35px 30px 115px 50px;
