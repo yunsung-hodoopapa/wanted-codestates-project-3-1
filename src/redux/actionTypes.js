@@ -19,14 +19,14 @@ export const getIssueData = () => {
   };
 };
 
-export const notify = (message, time = 500) => {
+export const notify =
+  (message, time = 500) =>
   dispatch => {
     dispatch(showMessage(message));
     setTimeout(() => {
       dispatch(deleteMessage());
     }, time);
   };
-};
 
 export const showMessage = message => {
   return {

@@ -80,6 +80,8 @@ const Box = styled.div`
 
 const Content = styled.div`
   display: flex;
+  width: 100%;
+
   img {
     width: 50px;
     height: 50px;
