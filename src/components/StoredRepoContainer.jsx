@@ -5,17 +5,17 @@ import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
 const Container = styled.div`
-  /* margin: 50px; */
   background-color: white;
-  width: 500px;
+  width: 440px;
   min-height: 100vh;
   overflow: hidden;
+  padding: 30px;
 `;
 
 const Title = styled.div`
-  margin: 30px;
   font-size: 22px;
   font-weight: bold;
+  margin-bottom: 30px;
 `;
 
 const StoredRepoContainer = ({ getSearchIssue }) => {
@@ -28,18 +28,21 @@ const StoredRepoContainer = ({ getSearchIssue }) => {
   return (
     <Container>
       <Title>Stored Repository</Title>
-      {storeData.map((obj, idx) => {
-        return (
-          <List
-            key={idx}
-            idx={idx}
-            item={obj}
-            type="stored"
-            searchIssue={searchIssue}
-          />
-        );
-      })}
-      {/* <List /> */}
+      {storeData.length ? (
+        storeData.map((obj, idx) => {
+          return (
+            <List
+              key={idx}
+              idx={idx}
+              item={obj}
+              type="stored"
+              searchIssue={searchIssue}
+            />
+          );
+        })
+      ) : (
+        <p>저장된 레포지토리가 없습니다.</p>
+      )}
     </Container>
   );
 };

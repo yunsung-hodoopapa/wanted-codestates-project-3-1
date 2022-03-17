@@ -51,15 +51,11 @@ const PaginationComponent = styled.div`
       &:nth-child(2) {
         right: 0;
       }
-      svg {
-      }
     }
   }
 `;
 
 const Pagination = ({ page, setPage, totalCount, isPreviousData }) => {
-  // eslint-disable-next-line no-debugger
-  const [pageNum, setPageNum] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [postPerPage, setPostPerPage] = useState(5);
 
@@ -73,8 +69,8 @@ const Pagination = ({ page, setPage, totalCount, isPreviousData }) => {
   }
 
   const moveRightPageNum = () => {
-    if (totalCount/postPerPage < page) {
-      return
+    if (totalCount / postPerPage < page) {
+      return;
     }
     setPage(page + 5);
     setCurrentPage(currentPage + 1);

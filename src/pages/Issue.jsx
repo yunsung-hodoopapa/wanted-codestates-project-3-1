@@ -22,6 +22,7 @@ const Issue = () => {
   const getSearchIssue = (owner_id, owner_name) => {
     setState([owner_id, owner_name]);
   };
+
   const getIssueByStatus = useCallback(() => {
     switch (status) {
       case 'loading':
@@ -35,7 +36,7 @@ const Issue = () => {
       default:
         return (
           <>
-            {data
+            {state.length !== 0
               ? data.map(item => {
                   return (
                     <List
@@ -73,7 +74,13 @@ const Issue = () => {
   return (
     <MainWrap>
       <Gnb />
-      <Container>{data ? <>{getIssueByStatus()}</> : null}</Container>
+      <Container>
+        {data ? (
+          <>{getIssueByStatus()}</>
+        ) : (
+          <IssueNotice>불러올 issue가 없습니다.</IssueNotice>
+        )}
+      </Container>
       <StoredRepoContainer
         getSearchIssue={(owner_id, owner_name) =>
           getSearchIssue(owner_id, owner_name)
@@ -93,6 +100,11 @@ const Container = styled.section`
   margin-left: auto;
   margin-right: auto;
   padding: 35px 0px;
+`;
+
+const IssueNotice = styled.div`
+  margin: 10px 50px;
+  color: var(--dark-gray);
 `;
 
 export default Issue;
