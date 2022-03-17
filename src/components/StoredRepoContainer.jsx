@@ -19,7 +19,6 @@ const Title = styled.div`
 
 const StoredRepoContainer = () => {
   const data = useSelector(state => state.data.store);
-  console.log(data);
   return (
     <Container>
       <Title>Stored Repository</Title>
