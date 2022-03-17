@@ -10,7 +10,6 @@ const RepoDetail = ({ detailContent }) => {
       <RepoName>{full_name}</RepoName>
       <RepoDesc>{description}</RepoDesc>
       <RepoUpdated>Updated on {updated_at}</RepoUpdated>
-      <SaveBtn>저 장</SaveBtn>
     </Wrapper>
   );
 };

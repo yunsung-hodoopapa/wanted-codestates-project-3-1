@@ -35,6 +35,9 @@ const Main = () => {
   const clickBtn = () => {
     searchInput(changeValue);
   };
+  const clickRepo = (id, full_name, description, updated_at, avatar_url) => {
+    setDetailContent({ id, full_name, description, updated_at, avatar_url });
+  };
 
   const clickRepo = (detailContent) => {
     setDetailContent(detailContent);
