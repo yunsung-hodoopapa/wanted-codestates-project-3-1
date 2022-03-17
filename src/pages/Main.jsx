@@ -13,6 +13,7 @@ const Main = () => {
   const queryClient = new QueryClient();
   const [changeValue, setChangeValue] = useState('');
   const [inputValue, setInputValue] = useState('');
+  const [detailContent, setDetailContent] = useState({});
   const searchInput = val => {
     setInputValue(val);
   };
@@ -27,6 +28,9 @@ const Main = () => {
   const clickBtn = () => {
     searchInput(changeValue);
   };
+  const clickRepo = (id, full_name, description, updated_at, avatar_url) => {
+    setDetailContent({ id, full_name, description, updated_at, avatar_url });
+  };
 
   return (
     <MainWrap>
@@ -40,9 +44,13 @@ const Main = () => {
             clickBtn={clickBtn}
           />
           <br />
-          <ResultField inputValue={inputValue} setInputValue={setInputValue} />
+          <ResultField
+            inputValue={inputValue}
+            setInputValue={setInputValue}
+            clickRepo={clickRepo}
+          />
         </Container>
-        <RepoDetail />
+        <RepoDetail detailContent={detailContent} />
       </QueryClientProvider>
     </MainWrap>
   );
