@@ -22,8 +22,6 @@ const ResultField = ({ inputValue, setInputValue }) => {
     console.log('이동 준비중');
   };
 
-  console.log(isPreviousData);
-
   const getDataByStatus = useCallback(() => {
     switch (status) {
       case 'loading':
