@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { AiOutlineDoubleLeft, AiOutlineDoubleRight } from 'react-icons/ai';
@@ -10,7 +10,7 @@ const PaginationComponent = styled.div`
   ul {
     display: flex;
     margin: 0 auto;
-    width: 140px;
+    width: 180px;
     margin: 0 auto;
     justify-content: center;
     overflow: hidden;
@@ -55,50 +55,49 @@ const PaginationComponent = styled.div`
   }
 `;
 
-const Pagination = () => {
-  const [page, setPage] = useState(1);
-  const [totalPage, setTotalPage] = useState([]);
-  const [fivePage, setFivePage] = useState(0);
+const Pagination = ({ page, setPage, totalCount, isPreviousData }) => {
+  const [pageNum, setPageNum] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postPerPage, setPostPerPage] = useState(5);
 
-  const pageContentCount = 7;
-  const totalCount = 54;
-  const totalPageCount = Math.ceil(totalCount / pageContentCount);
+  const indexOfLastPost = currentPage * postPerPage;
+  const indexOfFirstPost = indexOfLastPost - postPerPage;
 
-  useEffect(() => {
-    let paginationNumber = [];
-    for (let i = 1; i <= totalPageCount; i++) {
-      paginationNumber.push(i);
-    }
-    setTotalPage(paginationNumber);
-  }, []);
+  const pageNumbersArr = [];
 
-  const handlePageCount = bool => {
-    if (bool) {
-      setFivePage(fivePage - 1);
-    } else {
-      setFivePage(fivePage + 1);
+  for (let i = 1; i <= Math.ceil(totalCount / postPerPage); i++) {
+    pageNumbersArr.push(i);
+  }
+
+  const moveRightPageNum = () => {
+    setPage(page + 5);
+    setCurrentPage(currentPage + 1);
+  };
+  const moveLeftPageNum = () => {
+    if (page > 5) {
+      setPage(page - 5);
+      setCurrentPage(currentPage - 1);
     }
   };
 
   return (
     <>
-      <div>{page}</div>
       <PaginationComponent>
         <div>
-          <button onClick={() => handlePageCount(true)}>
+          <button onClick={moveLeftPageNum} disabled={page === 1}>
             <AiOutlineDoubleLeft />
           </button>
-          <button onClick={() => handlePageCount(false)}>
+          <button onClick={moveRightPageNum} disabled={isPreviousData}>
             <AiOutlineDoubleRight />
           </button>
         </div>
         <ul>
-          {totalPage
-            .slice(fivePage * 5, fivePage * 5 + 5)
+          {pageNumbersArr
+            .slice(indexOfFirstPost, indexOfLastPost)
             .map((value, index) => (
               <li key={index}>
                 <button
-                  className={page === value ? 'active' : ''}
+                  className={value === page ? 'active' : ''}
                   onClick={() => setPage(value)}
                 >
                   {value}
@@ -111,6 +110,11 @@ const Pagination = () => {
   );
 };
 
-Pagination.propTypes = {};
+Pagination.propTypes = {
+  page: PropTypes.number,
+  setPage: PropTypes.func,
+  totalCount: PropTypes.number,
+  isPreviousData: PropTypes.bool,
+};
 
 export default Pagination;

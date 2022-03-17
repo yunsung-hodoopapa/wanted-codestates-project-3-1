@@ -2,48 +2,63 @@ import React, { useState, useCallback, useEffect } from 'react';
 import styled from 'styled-components';
 import InputField from '../components/InputField';
 import ResultField from '../components/ResultField';
+import { debounce } from '../util/index';
 import Gnb from '../components/Gnb';
 import List from '../components/List';
 import RepoDetail from '../components/RepoDetail';
-import { getRepository } from '../util/axios';
-import { debounce } from '../util/index';
 import { QueryClientProvider, QueryClient } from 'react-query';
 import Pagination from '../components/Pagination';
 
 const Main = () => {
-  const [items, setItems] = useState([]);
-  const [inputValue, setInputValue] = useState('');
   const queryClient = new QueryClient();
+  const [changeValue, setChangeValue] = useState('');
+  const [inputValue, setInputValue] = useState('');
+  const [detailContent, setDetailContent] = useState({
+    id: '',
+    full_name: '',
+    description: '',
+    updated_at: '',
+    avatar_url: '',
+  });
 
-  const onChangeInput = useCallback(
-    e => {
-      debounce(setInputValue(e.target.value), 1000);
-    },
-    [inputValue],
-  );
+  const searchInput = val => {
+    setInputValue(val);
+  };
+  const clickKey = e => {
+    if (e.code === 'Enter') {
+      searchInput(e.target.value);
+    }
+  };
+  const onChange = e => {
+    setChangeValue(e.target.value);
+  };
+  const clickBtn = () => {
+    searchInput(changeValue);
+  };
 
-  useEffect(() => {
-    const axios = async () => {
-      const items = await getRepository('nam', 1);
-      setItems(items);
-    };
-    axios();
-  }, [inputValue]);
+  const clickRepo = (detailContent) => {
+    setDetailContent(detailContent);
+  };
 
   return (
     <MainWrap>
       <QueryClientProvider client={queryClient}>
         <Gnb />
         <Container>
-          <InputField onChangeInput={onChangeInput} inputValue={inputValue} />
+          <InputField
+            changeValue={changeValue}
+            onChange={onChange}
+            onKeyPress={clickKey}
+            clickBtn={clickBtn}
+          />
           <br />
-          <ResultField inputValue={inputValue} setInputValue={setInputValue} />
-          {items.map(item => (
-            <List key={item.id} item={item} type="repo" />
-          ))}
-          <Pagination />
+          <ResultField
+            inputValue={inputValue}
+            setInputValue={setInputValue}
+            clickRepo={clickRepo}
+          />
         </Container>
-        <RepoDetail />
+        <RepoDetail detailContent={detailContent} />
       </QueryClientProvider>
     </MainWrap>
   );
@@ -52,15 +67,16 @@ const Main = () => {
 export const MainWrap = styled.div`
   display: flex;
 `;
+
 const Container = styled.section`
-  width: 700px;
+  width: 100%;
+  max-width: 680px;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  align-items: start;
   flex-direction: column;
   margin-left: auto;
   margin-right: auto;
-  padding: 20px 0px;
+  padding: 35px 0px;
 `;
 
 export default Main;

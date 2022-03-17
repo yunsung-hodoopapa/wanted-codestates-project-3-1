@@ -7,7 +7,7 @@ import List from './List';
 const Container = styled.div`
   /* margin: 50px; */
   background-color: white;
-  width: 520px;
+  width: 500px;
   min-height: 100vh;
 `;
 
