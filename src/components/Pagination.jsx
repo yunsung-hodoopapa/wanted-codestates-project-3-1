@@ -5,7 +5,7 @@ import { AiOutlineDoubleLeft, AiOutlineDoubleRight } from 'react-icons/ai';
 
 const PaginationComponent = styled.div`
   position: relative;
-  width: 220px;
+  width: 250px;
   margin: 24px auto 0;
   ul {
     display: flex;
@@ -33,14 +33,17 @@ const PaginationComponent = styled.div`
   }
   div {
     button {
-      width: 24px;
-      height: 24px;
+      width: 25px;
+      height: 25px;
       position: absolute;
       top: 50%;
-      margin-top: -11px;
+      margin-top: -12.5px;
       border: 1px solid #ccc;
       background-color: transparent;
       color: gray;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       cursor: pointer;
       &:nth-child(1) {
         left: 0;
@@ -49,7 +52,6 @@ const PaginationComponent = styled.div`
         right: 0;
       }
       svg {
-        vertical-align: sub;
       }
     }
   }
@@ -85,7 +87,7 @@ const Pagination = ({ page, setPage, totalCount, isPreviousData }) => {
       <PaginationComponent>
         <div>
           <button onClick={moveLeftPageNum} disabled={page === 1}>
-            <AiOutlineDoubleLeft />
+            <AiOutlineDoubleLeft size={20} />
           </button>
           <button onClick={moveRightPageNum} disabled={isPreviousData}>
             <AiOutlineDoubleRight />
