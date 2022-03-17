@@ -56,6 +56,7 @@ export const useIssueResults = (owner, repo, page) => {
     {
       enabled: !!owner,
       keepPreviousData: true,
+      select: data => data.slice(0, 10),
     },
   );
 };
