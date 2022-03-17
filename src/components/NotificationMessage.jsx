@@ -4,11 +4,10 @@ import { useSelector } from 'react-redux';
 
 const MessageContainer = styled.div`
   // 위치
-  position: absolute;
+  position: fixed;
   right: 0;
-  top: 32px;
+  top: ${props => props.index * '85'}px;
   z-index: 999;
-
   // 박스 크기
   width: 336px;
   height: 80px;
@@ -33,16 +32,31 @@ const MessageContainer = styled.div`
   // 글씨 위치
   line-height: 80px;
   text-align: center;
+
+  // 효과
+  animation: moveToRight 5s;
+
+  @keyframes moveToRight {
+    25% {
+      opacity: 1;
+    }
+    75% {
+      opacity: 0.5;
+    }
+  }
 `;
 
 const NotificationMessage = () => {
   const message = useSelector(state => state.notice.message);
-  console.log(message);
   return (
     <div>
-      {message.length === 0 ? null : (
-        <MessageContainer message={message}>{message}</MessageContainer>
-      )}
+      {message.map((el, index) => {
+        return (
+          <MessageContainer key={index} message={el} index={index}>
+            {el}
+          </MessageContainer>
+        );
+      })}
     </div>
   );
 };
