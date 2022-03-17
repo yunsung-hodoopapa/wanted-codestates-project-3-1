@@ -31,7 +31,7 @@ const RepoDetail = ({ detailContent, isShow, setIsShow }) => {
 const Wrapper = styled.nav`
   background-color: #fff;
   width: 100%;
-  max-width: 480px;
+  max-width: 460px;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -78,7 +78,7 @@ const RepoDesc = styled.p`
   margin-bottom: 12px;
   /* background-color: pink; */
   text-align: center;
-  margin: 0 22px 12px 22px;
+  margin: 0 24px 12px 24px;
   line-height: 1.2;
 `;
 
