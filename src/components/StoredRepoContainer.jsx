@@ -24,12 +24,19 @@ const StoredRepoContainer = ({ getSearchIssue }) => {
   const searchIssue = (owner_id, owner_name) => {
     getSearchIssue(owner_id, owner_name);
   };
+
   return (
     <Container>
       <Title>Stored Repository</Title>
       {storeData.map((obj, idx) => {
         return (
-          <List key={idx} item={obj} type="stored" searchIssue={searchIssue} />
+          <List
+            key={idx}
+            idx={idx}
+            item={obj}
+            type="stored"
+            searchIssue={searchIssue}
+          />
         );
       })}
       {/* <List /> */}
