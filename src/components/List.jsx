@@ -13,7 +13,6 @@ const List = ({ type = 'repo', item, clickHandle }) => {
 
   const StoredData = useSelector(state => state.data.store);
 
-  console.log(StoredData);
   if (type === 'issue') {
     const issue = item;
   } else if (type === 'stored') {
@@ -56,7 +55,6 @@ const List = ({ type = 'repo', item, clickHandle }) => {
 
   const saveRepo = () => {
     if (StoredData.length >= 4) {
-      console.log(StoredData);
       dispatch(notify('repository 저장 개수를 초과했습니다.', 1500));
     } else {
       dispatch(

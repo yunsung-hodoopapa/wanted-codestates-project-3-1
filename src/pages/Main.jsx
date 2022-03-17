@@ -2,12 +2,9 @@ import React, { useState, useCallback } from 'react';
 import styled from 'styled-components';
 import InputField from '../components/InputField';
 import ResultField from '../components/ResultField';
-import { debounce } from '../util/index';
 import Gnb from '../components/Gnb';
-import List from '../components/List';
 import RepoDetail from '../components/RepoDetail';
 import { QueryClientProvider, QueryClient } from 'react-query';
-import Pagination from '../components/Pagination';
 import NotificationMessage from '../components/NotificationMessage';
 
 const Main = () => {
