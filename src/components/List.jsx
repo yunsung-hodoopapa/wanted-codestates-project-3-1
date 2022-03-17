@@ -11,7 +11,7 @@ const List = ({ type = 'repo', item, clickHandle, searchIssue }) => {
   let itemId, repoName, htmlUrl, imgUrl, title, text, date;
   let owner_id, owner_name;
 
-  const StoredData = useSelector(state => state.data.store);
+  const storedData = useSelector(state => state.data.store);
 
   if (type === 'issue') {
     const issue = item;
@@ -50,7 +50,8 @@ const List = ({ type = 'repo', item, clickHandle, searchIssue }) => {
   };
 
   const saveRepo = () => {
-    if (StoredData.length >= 4) {
+    if (isSave(itemId)) return;
+    if (storedData.length >= 4) {
       dispatch(notify('repository 저장 개수를 초과했습니다.', 1500));
     } else {
       dispatch(
@@ -72,6 +73,14 @@ const List = ({ type = 'repo', item, clickHandle, searchIssue }) => {
     dispatch(deleteRepo(itemId));
   };
 
+  const isSave = id => {
+    return storedData.some(data => {
+      if (data.id === id) {
+        return true;
+      }
+    });
+  };
+
   return (
     <Box type={type}>
       <Content onClick={onClickEvent}>
@@ -83,7 +92,14 @@ const List = ({ type = 'repo', item, clickHandle, searchIssue }) => {
         </div>
       </Content>
       <Option>
-        {type === 'repo' ? <button onClick={saveRepo}>저 장</button> : null}
+        {type === 'repo' ? (
+          <button
+            onClick={saveRepo}
+            className={isSave(itemId) ? 'registered' : null}
+          >
+            저 장
+          </button>
+        ) : null}
         {type === 'issue' ? <p>{repoName}</p> : null}
         {type === 'stored' ? <i onClick={removeRepo}></i> : null}
       </Option>
@@ -171,6 +187,11 @@ const Option = styled.div`
   .registered {
     color: #8b8c93;
     background-color: #d4d5dd;
+    cursor: default;
+    &:hover {
+      color: #8b8c93;
+      background-color: #d4d5dd;
+    }
   }
   //repoName
   p {
