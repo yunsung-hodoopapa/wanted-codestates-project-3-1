@@ -13,6 +13,10 @@ const getRepository = async (keyword, page) => {
       headers,
     });
     const data = response.data;
+<<<<<<< HEAD
+=======
+    // console.log(data);
+>>>>>>> ccfb20f95e9169067ae7b3a2b1b085e56281c91e
     return data;
   } catch (error) {
     console.error(error);
