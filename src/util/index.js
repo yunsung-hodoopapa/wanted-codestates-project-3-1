@@ -1,7 +1,7 @@
-export const debounce = (callback, duration) => {
-  let timer;
+export const debounce = (fn, delay = 50) => {
+  let time;
   return (...args) => {
-    clearTimeout(timer);
-    timer = setTimeout(() => callback(...args), duration);
+    clearTimeout(time);
+    time = setTimeout(() => fn(...args), delay);
   };
 };

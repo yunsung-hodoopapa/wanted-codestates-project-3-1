@@ -84,11 +84,11 @@ const Content = styled.div`
     line-height: 1.5;
     font-size: 20px;
     font-weight: 600;
-    color: #3d57c2;
+    color: var(--main-blue);
   }
   p {
     font-size: 16px;
-    width: 200px;
+    width: 300px;
     color: #666;
     line-height: 1.5;
     text-overflow: ellipsis;
@@ -113,9 +113,10 @@ const Option = styled.div`
     width: 100px;
     height: 100%;
     border: none;
-    background-color: #7281d6;
-    color: #fff;
+    background-color: var(--sub-blue);
+    color: #f3f3f3;
     font-size: 16px;
+    font-weight: 500;
     border-top-right-radius: 16px;
     border-end-end-radius: 16px;
     cursor: pointer;
@@ -123,6 +124,7 @@ const Option = styled.div`
 
     &:hover {
       background-color: var(--main-blue);
+      color: #fff;
     }
   }
   .registered {

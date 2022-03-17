@@ -1,19 +1,26 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import styled from 'styled-components';
 import { useQueryClient } from 'react-query';
 import { useRepoResults } from '../util/axios';
+import Pagination from './Pagination';
 
 // eslint-disable-next-line react/prop-types
 const ResultField = ({ inputValue, setInputValue }) => {
   const queryClient = useQueryClient();
+  const [page, setPage] = useState(1);
 
-  const { status, data, error } = useRepoResults(inputValue, 10);
+  const { data, error, isPreviousData, isFetching, status, isLoading } =
+    useRepoResults(inputValue, page);
 
   const onHandleList = name => {
     setInputValue(name);
   };
 
-  const getDataByStatus = () => {
+  const onClickEvent = () => {
+    console.log('이동 준비중');
+  };
+
+  const getDataByStatus = useCallback(() => {
     switch (status) {
       case 'loading':
         return <div>Loading</div>;
@@ -21,53 +28,158 @@ const ResultField = ({ inputValue, setInputValue }) => {
         return <span>Error: {error.message}</span>;
       default:
         return (
-          <ul>
-            <ResultHeader>추천 검색어</ResultHeader>
-            {data?.map(item => {
-              const { id, full_name, decription, updated_at, owner } = item;
-              const { avatar_url } = owner;
-              return (
-                <SearchedItem
-                  key={id}
-                  value={full_name}
-                  onClick={() => onHandleList(item.name)}
-                >
-                  {full_name}
-                </SearchedItem>
-              );
-            })}
-          </ul>
+          <>
+            {data
+              ? data.items?.map(item => {
+                  const { id, full_name, decription, updated_at, owner } = item;
+                  const { avatar_url } = owner;
+                  return (
+                    <Box key={id} onClick={onClickEvent}>
+                      <Content>
+                        <img src={avatar_url} alt={name} />
+                        <div>
+                          <h3>{full_name}</h3>
+                          <p>{decription}</p>
+                          <span>{updated_at}</span>
+                        </div>
+                      </Content>
+                      <Option>
+                        <button>저 장</button>
+                      </Option>
+                    </Box>
+                  );
+                })
+              : null}
+            {data.total_count ? (
+              <Pagination
+                page={page}
+                setPage={setPage}
+                totalCount={data.total_count}
+              />
+            ) : null}
+            {isFetching ? <span>Loading...</span> : null}
+          </>
         );
     }
-  };
+  }, [status, isFetching]);
 
-  return data ? <Wrapper>{getDataByStatus()}</Wrapper> : null;
+  return data ? <>{getDataByStatus()}</> : null;
 };
 
-const Wrapper = styled.div`
+const Box = styled.div`
   display: flex;
-  flex-direction: column;
-  width: 660px;
-  background-color: #ffffff;
-  border-radius: 42px;
-  line-height: 25.6px;
-`;
-
-const SearchedItem = styled.li`
-  padding: 5px 0px 5px 5px;
-  margin-bottom: 5px;
-  border-bottom: 1px solid #efefef;
-  list-style: none;
-  &:hover {
-    background: #cae9ff;
-    color: #ffffff;
+  justify-content: space-between;
+  width: 100%;
+  margin: 11px auto;
+  border-radius: 16px;
+  background-color: #fff;
+  transition: all 0.3s;
+  :hover {
+    filter: ${props =>
+      props.type !== 'stored'
+        ? 'drop-shadow(2px 2px 10px rgba(84, 83, 133, 0.3))'
+        : 'none'};
   }
-  cursor: pointer;
+
+  box-shadow: ${props =>
+    props.type === 'stored'
+      ? '2px 2px 10px 1px rgba(160, 160, 160, 0.4)'
+      : 'none'};
 `;
 
-const ResultHeader = styled.span`
-  font-size: 0.8rem;
-  color: #3b3b3b;
+const Content = styled.div`
+  display: flex;
+  img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin: 25px 27px;
+  }
+  h3 {
+    line-height: 1.5;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--main-blue);
+  }
+  p {
+    font-size: 16px;
+    width: 300px;
+    color: #666;
+    line-height: 1.5;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  span {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #8b8c93;
+  }
+  > div {
+    margin: 12px 0;
+    padding-left: 5px;
+  }
+`;
+
+const Option = styled.div`
+  position: relative;
+  //저장 버튼
+  button {
+    width: 100px;
+    height: 100%;
+    border: none;
+    background-color: var(--sub-blue);
+    color: #f3f3f3;
+    font-size: 16px;
+    font-weight: 500;
+    border-top-right-radius: 16px;
+    border-end-end-radius: 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+
+    &:hover {
+      background-color: var(--main-blue);
+      color: #fff;
+    }
+  }
+  .registered {
+    color: #8b8c93;
+    background-color: #d4d5dd;
+  }
+  //repoName
+  p {
+    width: 250px;
+    margin-right: 29px;
+    margin-top: 72px;
+    color: #7281d6;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  //reopRemove
+  i {
+    display: block;
+    padding: 13px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    ::after,
+    ::before {
+      display: block;
+      position: absolute;
+      right: 23px;
+      width: 1px;
+      height: 20px;
+      background-color: #666;
+      content: '';
+    }
+    ::after {
+      transform: rotate(45deg);
+    }
+    ::before {
+      transform: rotate(-45deg);
+    }
+  }
 `;
 
 export default ResultField;

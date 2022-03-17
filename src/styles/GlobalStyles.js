@@ -7,7 +7,7 @@ const GlobalStyles = createGlobalStyle`
 
 	body {
     letter-spacing: -0.02em;
-    background-color: #E2E5FF;
+    background-color: var(--light-gray);
 		color: #333;
 		font-family: 'Pretendard Variable';
   }
@@ -24,7 +24,7 @@ const GlobalStyles = createGlobalStyle`
 	:root {
 		--main-blue: #3D57C2;
 		--sub-blue: #7281D6;
-		--light-blue: #E2E5FF;
+		--light-blue: #EAECFD;
 		--dark-gray: #8B8C93;
 		--gray: #D4D5DD;
 		--light-gray: #F6F4FC;
