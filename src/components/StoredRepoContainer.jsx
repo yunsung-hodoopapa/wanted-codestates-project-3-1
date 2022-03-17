@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import StoredRepository from './StoredRepository';
 import List from './List';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
