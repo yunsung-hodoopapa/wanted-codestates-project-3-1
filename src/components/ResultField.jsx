@@ -5,19 +5,18 @@ import { useRepoResults } from '../util/axios';
 import Pagination from './Pagination';
 
 // eslint-disable-next-line react/prop-types
-const ResultField = ({ inputValue, setInputValue }) => {
+const ResultField = ({ inputValue, setInputValue, clickRepo }) => {
   const queryClient = useQueryClient();
   const [page, setPage] = useState(1);
 
   const { data, error, isPreviousData, isFetching, status, isLoading } =
     useRepoResults(inputValue, page);
-
   const onHandleList = name => {
     setInputValue(name);
   };
 
-  const onClickEvent = () => {
-    console.log('이동 준비중');
+  const onClickEvent = (id, full_name, description, updated_at, avatar_url) => {
+    clickRepo(id, full_name, description, updated_at, avatar_url);
   };
 
   const getDataByStatus = useCallback(() => {
@@ -31,15 +30,27 @@ const ResultField = ({ inputValue, setInputValue }) => {
           <>
             {data
               ? data.items?.map(item => {
-                  const { id, full_name, decription, updated_at, owner } = item;
+                  const { id, full_name, description, updated_at, owner } =
+                    item;
                   const { avatar_url } = owner;
                   return (
-                    <Box key={id} onClick={onClickEvent}>
+                    <Box
+                      key={id}
+                      onClick={() => {
+                        onClickEvent(
+                          id,
+                          full_name,
+                          description,
+                          updated_at,
+                          avatar_url,
+                        );
+                      }}
+                    >
                       <Content>
                         <img src={avatar_url} alt={name} />
                         <div>
                           <h3>{full_name}</h3>
-                          <p>{decription}</p>
+                          <p>{description}</p>
                           <span>{updated_at}</span>
                         </div>
                       </Content>

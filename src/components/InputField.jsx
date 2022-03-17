@@ -3,16 +3,17 @@ import styled from 'styled-components';
 import { MdSearch } from 'react-icons/md';
 
 // eslint-disable-next-line react/prop-types
-const InputField = ({ onChangeInput, inputValue }) => {
+const InputField = ({ changeValue, onKeyPress, onChange, clickBtn }) => {
   return (
     <Wrapper>
       <Input
         type="text"
-        value={inputValue}
-        onChange={onChangeInput}
-        placeholder="search"
+        onKeyPress={onKeyPress}
+        placeholder="레포를 찾아봅시다."
+        value={changeValue}
+        onChange={onChange}
       />
-      <Button>
+      <Button onClick={clickBtn}>
         <MdSearch size={25} color="black" />
       </Button>
     </Wrapper>

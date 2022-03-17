@@ -10,27 +10,47 @@ import { QueryClientProvider, QueryClient } from 'react-query';
 import Pagination from '../components/Pagination';
 
 const Main = () => {
-  // const [items, setItems] = useState([]);
-  const [inputValue, setInputValue] = useState('');
   const queryClient = new QueryClient();
-
-  const onChangeInput = useCallback(
-    e => {
-      debounce(setInputValue(e.target.value), 500);
-    },
-    [inputValue],
-  );
+  const [changeValue, setChangeValue] = useState('');
+  const [inputValue, setInputValue] = useState('');
+  const [detailContent, setDetailContent] = useState({});
+  const searchInput = val => {
+    setInputValue(val);
+  };
+  const clickKey = e => {
+    if (e.code === 'Enter') {
+      searchInput(e.target.value);
+    }
+  };
+  const onChange = e => {
+    setChangeValue(e.target.value);
+  };
+  const clickBtn = () => {
+    searchInput(changeValue);
+  };
+  const clickRepo = (id, full_name, description, updated_at, avatar_url) => {
+    setDetailContent({ id, full_name, description, updated_at, avatar_url });
+  };
 
   return (
     <MainWrap>
       <QueryClientProvider client={queryClient}>
         <Gnb />
         <Container>
-          <InputField onChangeInput={onChangeInput} inputValue={inputValue} />
+          <InputField
+            changeValue={changeValue}
+            onChange={onChange}
+            onKeyPress={clickKey}
+            clickBtn={clickBtn}
+          />
           <br />
-          <ResultField inputValue={inputValue} setInputValue={setInputValue} />
+          <ResultField
+            inputValue={inputValue}
+            setInputValue={setInputValue}
+            clickRepo={clickRepo}
+          />
         </Container>
-        <RepoDetail />
+        <RepoDetail detailContent={detailContent} />
       </QueryClientProvider>
     </MainWrap>
   );
