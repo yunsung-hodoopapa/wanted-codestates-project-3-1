@@ -1,21 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+
 const RepoDetail = ({ detailContent }) => {
-  console.log(detailContent.avatar_url);
+  const { id, full_name, description, updated_at, avatar_url } = detailContent;
   return (
     <Wrapper>
-      <ProfilePic img={detailContent.avatar_url} />
-      <RepoName>{detailContent.full_name}</RepoName>
-      <RepoDesc>{detailContent.description}</RepoDesc>
-      <RepoUpdated>Updated on {detailContent.updated_at}</RepoUpdated>
-      <SaveBtn>저 장</SaveBtn>
+      <ProfilePic img={avatar_url} />
+      <RepoName>{full_name}</RepoName>
+      <RepoDesc>{description}</RepoDesc>
+      <RepoUpdated>Updated on {updated_at}</RepoUpdated>
     </Wrapper>
   );
 };
-RepoDetail.propTypes = {
-  detailContent: PropTypes.object,
-};
+
 const Wrapper = styled.nav`
   background-color: #fff;
   width: 100%;
@@ -76,4 +74,9 @@ const SaveBtn = styled.button`
     background-color: var(--sub-blue);
   }
 `;
+
+RepoDetail.propTypes = {
+  detailContent: PropTypes.object,
+};
+
 export default RepoDetail;

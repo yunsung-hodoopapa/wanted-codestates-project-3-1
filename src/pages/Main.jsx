@@ -13,7 +13,14 @@ const Main = () => {
   const queryClient = new QueryClient();
   const [changeValue, setChangeValue] = useState('');
   const [inputValue, setInputValue] = useState('');
-  const [detailContent, setDetailContent] = useState({});
+  const [detailContent, setDetailContent] = useState({
+    id: '',
+    full_name: '',
+    description: '',
+    updated_at: '',
+    avatar_url: '',
+  });
+
   const searchInput = val => {
     setInputValue(val);
   };
@@ -28,8 +35,9 @@ const Main = () => {
   const clickBtn = () => {
     searchInput(changeValue);
   };
-  const clickRepo = (id, full_name, description, updated_at, avatar_url) => {
-    setDetailContent({ id, full_name, description, updated_at, avatar_url });
+
+  const clickRepo = (detailContent) => {
+    setDetailContent(detailContent);
   };
 
   return (
