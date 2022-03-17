@@ -13,7 +13,7 @@ const getRepository = async (keyword, page) => {
       headers,
     });
     const data = response.data;
-    console.log(data);
+    // console.log(data);
     return data;
   } catch (error) {
     console.error(error);
@@ -22,9 +22,6 @@ const getRepository = async (keyword, page) => {
 
 const getIssue = async (owner, repo) => {
   try {
-    console.log('here');
-    console.log('owner');
-    console.log('repo');
     const response = await axios.get(`/api/repos/${owner}/${repo}/issues`, {
       headers,
     });
