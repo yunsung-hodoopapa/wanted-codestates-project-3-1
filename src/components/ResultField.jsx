@@ -5,6 +5,8 @@ import { useRepoResults } from '../util/axios';
 import PropTypes from 'prop-types';
 import Pagination from './Pagination';
 import List from './List';
+import Background from './loadingSpinner/Background';
+import Spinner from './loadingSpinner/Spinner';
 
 const ResultField = ({ inputValue, setInputValue, clickRepo }) => {
   const queryClient = useQueryClient();
@@ -22,7 +24,11 @@ const ResultField = ({ inputValue, setInputValue, clickRepo }) => {
   const getDataByStatus = useCallback(() => {
     switch (status) {
       case 'loading':
-        return <div>Loading</div>;
+        return (
+          <Background>
+            <Spinner />
+          </Background>
+        );
       case 'error':
         return <span>Error: {error.message}</span>;
       default:
@@ -42,7 +48,11 @@ const ResultField = ({ inputValue, setInputValue, clickRepo }) => {
                 isPreviousData={isPreviousData}
               />
             ) : null}
-            {isFetching ? <span>Loading...</span> : null}
+            {isFetching ? (
+              <Background>
+                <Spinner />
+              </Background>
+            ) : null}
           </>
         );
     }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import styled from 'styled-components';
 import Gnb from '../components/Gnb';
 import { MainWrap } from './Main';
@@ -9,6 +9,8 @@ import { useIssueResults } from '../util/axios';
 import { useSelector } from 'react-redux';
 import Pagination from '../components/Pagination';
 import NotificationMessage from '../components/NotificationMessage';
+import Background from '../components/loadingSpinner/Background';
+import Spinner from '../components/loadingSpinner/Spinner';
 
 const Issue = () => {
   const queryClient = useQueryClient();
@@ -24,7 +26,11 @@ const Issue = () => {
   const getIssueByStatus = useCallback(() => {
     switch (status) {
       case 'loading':
-        return <div>Loading</div>;
+        return (
+          <Background>
+            <Spinner />
+          </Background>
+        );
       case 'error':
         return <span>Error: {error.message}</span>;
       default:
@@ -50,7 +56,11 @@ const Issue = () => {
                 isPreviousData={isPreviousData}
               />
             ) : null} */}
-            {isFetching ? <span>Loading...</span> : null}
+             {isFetching ? (
+              <Background>
+                <Spinner />
+              </Background>
+            ) : null}
           </>
         );
     }

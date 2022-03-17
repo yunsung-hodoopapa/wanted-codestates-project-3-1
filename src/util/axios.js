@@ -13,7 +13,6 @@ const getRepository = async (keyword, page) => {
       headers,
     });
     const data = response.data;
-    // console.log(data);
     return data;
   } catch (error) {
     console.error(error);
