@@ -16,10 +16,9 @@ const Issue = () => {
   const queryClient = useQueryClient();
   const stored = useSelector(state => state.data.store);
   const [state, setState] = useState([]);
-  const { data, error, isFetching, isPreviousData, status } = useIssueResults(
-    state[1],
-    state[0],
-  );
+  const [issuePage, setIssuePage] = useState(1);
+  const { data, error, isFetching, isPreviousData, status, isLoading } =
+    useIssueResults(state[1], state[0], issuePage);
   const getSearchIssue = (owner_id, owner_name) => {
     setState([owner_id, owner_name]);
   };
@@ -48,15 +47,20 @@ const Issue = () => {
                   );
                 })
               : null}
-            {/* {data.total_count ? (
+            {data ? (
               <Pagination
-                page={page}
-                setPage={setPage}
-                totalCount={data.total_count}
+                page={issuePage}
+                setPage={setIssuePage}
+                totalCount={data.length}
                 isPreviousData={isPreviousData}
               />
-            ) : null} */}
-             {isFetching ? (
+            ) : null}
+            {isFetching ? (
+              <Background>
+                <Spinner />
+              </Background>
+            ) : null}
+            {isLoading ? (
               <Background>
                 <Spinner />
               </Background>
@@ -64,7 +68,7 @@ const Issue = () => {
           </>
         );
     }
-  }, [status, isFetching]);
+  }, [status, isFetching, isLoading]);
 
   return (
     <MainWrap>
