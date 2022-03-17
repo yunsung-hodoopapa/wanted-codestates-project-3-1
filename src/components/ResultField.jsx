@@ -9,8 +9,11 @@ const ResultField = ({ inputValue, setInputValue, clickRepo }) => {
   const queryClient = useQueryClient();
   const [page, setPage] = useState(1);
 
-  const { data, error, isPreviousData, isFetching, status, isLoading } =
-    useRepoResults(inputValue, page);
+  const { data, error, isFetching, isPreviousData, status } = useRepoResults(
+    inputValue,
+    page,
+  );
+
   const onHandleList = name => {
     setInputValue(name);
   };
@@ -66,6 +69,7 @@ const ResultField = ({ inputValue, setInputValue, clickRepo }) => {
                 page={page}
                 setPage={setPage}
                 totalCount={data.total_count}
+                isPreviousData={isPreviousData}
               />
             ) : null}
             {isFetching ? <span>Loading...</span> : null}
