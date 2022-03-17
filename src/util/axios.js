@@ -50,7 +50,7 @@ export const useRepoResults = (keyword, page) => {
 
 export const useIssueResults = (owner, repo, page) => {
   return useQuery(
-    ['owner', owner, repo],
+    ['owner', owner, repo, page],
     () => {
       return getIssue(owner, repo, page);
     },
