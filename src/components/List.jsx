@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-const List = ({ type = 'stored', item }) => {
+const List = ({ type = 'repo', item, clickHandle }) => {
   let itemId, repoName, htmlUrl, imgUrl, name, text, date;
 
   if (type === 'issue') {
@@ -18,9 +18,17 @@ const List = ({ type = 'stored', item }) => {
     ];
   }
 
+  const detailData = {
+    id: itemId,
+    full_name: repoName,
+    description: text,
+    updated_at: date,
+    avatar_url: imgUrl,
+  };
+
   const onClickEvent = () => {
-    if (type === 'issue') {
-      location.replace(htmlUrl);
+    if (type === 'repo') {
+      clickHandle(detailData);
     }
   };
 
@@ -170,6 +178,7 @@ const Option = styled.div`
 List.propTypes = {
   type: PropTypes.string,
   item: PropTypes.object,
+  clickHandle: PropTypes.func,
 };
 
 export default List;
