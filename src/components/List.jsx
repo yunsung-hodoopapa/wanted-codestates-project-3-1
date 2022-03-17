@@ -5,7 +5,13 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { deleteRepo, storeRepo, notify } from '../redux/actionTypes';
 
-const List = ({ type = 'repo', item, clickHandle, searchIssue }) => {
+const List = ({
+  type = 'repo',
+  item,
+  clickHandle,
+  searchIssue,
+  repoNameProp,
+}) => {
   const dispatch = useDispatch();
   let itemId, repoName, htmlUrl, imgUrl, title, text, date;
   let owner_id, owner_name;
@@ -13,7 +19,12 @@ const List = ({ type = 'repo', item, clickHandle, searchIssue }) => {
   const storedData = useSelector(state => state.data.store);
 
   if (type === 'issue') {
-    const issue = item;
+    htmlUrl = item.html_url;
+    imgUrl = item.user.avatar_url;
+    title = item.title;
+    text = item.user.login;
+    date = item.updated_at;
+    repoName = repoNameProp;
   } else if (type === 'stored') {
     itemId = item.id;
     imgUrl = item.avatar_url;
@@ -34,6 +45,8 @@ const List = ({ type = 'repo', item, clickHandle, searchIssue }) => {
 
   const detailData = {
     id: itemId,
+    owner_id,
+    name: owner_name,
     full_name: title,
     description: text,
     updated_at: date,
@@ -48,22 +61,18 @@ const List = ({ type = 'repo', item, clickHandle, searchIssue }) => {
     }
   };
 
+  const boxClick = () => {
+    if (type === 'issue') {
+      location.replace(htmlUrl);
+    }
+  };
+
   const saveRepo = () => {
     if (isSave(itemId)) return;
     if (storedData.length >= 4) {
       dispatch(notify('repository 저장 개수를 초과했습니다.', 3000));
     } else {
-      dispatch(
-        storeRepo({
-          id: itemId,
-          owner_id,
-          name: owner_name,
-          full_name: title,
-          description: text,
-          updated_at: date,
-          avatar_url: imgUrl,
-        }),
-      );
+      dispatch(storeRepo(detailData));
       dispatch(notify('repository를 저장소에 저장했습니다.', 3000));
     }
   };
@@ -82,13 +91,13 @@ const List = ({ type = 'repo', item, clickHandle, searchIssue }) => {
   };
 
   return (
-    <Box type={type}>
+    <Box onClick={boxClick} type={type}>
       <Content onClick={onClickEvent}>
         <img src={imgUrl} alt={title} />
         <div>
           <h3>{title}</h3>
           <p>{text}</p>
-          <span>updated_at {date.split('T')[0]}</span>
+          <span>Updated at {date.split('T')[0]}</span>
         </div>
       </Content>
       <Option>
@@ -100,7 +109,7 @@ const List = ({ type = 'repo', item, clickHandle, searchIssue }) => {
             저 장
           </button>
         ) : null}
-        {type === 'issue' ? <p>{repoName}</p> : null}
+        {type === 'issue' ? <p>{repoName[1] + '/' + repoName[0]}</p> : null}
         {type === 'stored' ? <i onClick={removeRepo}></i> : null}
       </Option>
     </Box>
@@ -234,6 +243,7 @@ List.propTypes = {
   item: PropTypes.object,
   clickHandle: PropTypes.func,
   searchIssue: PropTypes.func,
+  repoNameProp: PropTypes.array,
 };
 
 export default List;

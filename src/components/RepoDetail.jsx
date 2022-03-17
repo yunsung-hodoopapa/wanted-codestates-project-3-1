@@ -20,8 +20,8 @@ const RepoDetail = ({ detailContent, isShow, setIsShow }) => {
           <ProfilePic img={avatar_url} />
           <RepoName>{full_name}</RepoName>
           <RepoDesc>{description}</RepoDesc>
-          <RepoUpdated>Updated at {updated_at}</RepoUpdated>
-          <SaveBtn>저 장</SaveBtn>
+          <RepoUpdated>Updated at {updated_at.split('T')[0]}</RepoUpdated>
+          {/* <SaveBtn onClick={saveRepo}>저 장</SaveBtn> */}
         </Wrapper>
       ) : null}
     </>
@@ -67,9 +67,6 @@ const RepoName = styled.p`
   width: 340px;
   /* background-color: yellow; */
   text-align: center;
-  /* text-overflow: ellipsis; */
-  /* white-space: nowrap; */
-  /* overflow: hidden; */
 `;
 
 const RepoDesc = styled.p`
