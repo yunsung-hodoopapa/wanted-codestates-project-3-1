@@ -68,7 +68,7 @@ const Pagination = ({ page, setPage, totalCount, isPreviousData }) => {
 
   const pageNumbersArr = [];
 
-  for (let i = 1; i <= Math.ceil(totalCount / postPerPage); i++) {
+  for (let i = 1; i <= Math.floor(totalCount / postPerPage); i++) {
     pageNumbersArr.push(i);
   }
 
