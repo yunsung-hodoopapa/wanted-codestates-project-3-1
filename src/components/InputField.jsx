@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { MdSearch } from 'react-icons/md';
+import { useQueryClient } from 'react-query';
+import { useRepoResults } from '../util/axios';
 
 // eslint-disable-next-line react/prop-types
 const InputField = ({ changeValue, onKeyPress, onChange, clickBtn }) => {
