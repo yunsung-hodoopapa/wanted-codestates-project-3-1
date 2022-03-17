@@ -3,6 +3,7 @@ import { useQuery } from 'react-query';
 import { headers } from '../constants/index';
 
 export const getRepository = async (keyword, page) => {
+  console.log(keyword, page);
   try {
     const response = await axios.get(`/api/search/repositories`, {
       params: {
@@ -13,6 +14,7 @@ export const getRepository = async (keyword, page) => {
       headers,
     });
     const data = response.data;
+    console.log(data);
     return data;
   } catch (error) {
     console.error(error);
@@ -36,11 +38,18 @@ const getIssue = async (owner, repo) => {
 };
 
 export const useRepoResults = (keyword, page) => {
-  return useQuery(['results', page], () => getRepository(keyword, page), {
-    enabled: !!keyword,
-    keepPreviousData: true,
-    // select: (data) => data.slice(0, 10),
-  });
+  console.log('useRepoResults', keyword);
+  return useQuery(
+    ['results', keyword, page],
+    () => {
+      return getRepository(keyword, page);
+    },
+    {
+      enabled: !!keyword,
+      keepPreviousData: true,
+      // select: (data) => data.slice(0, 10),
+    },
+  );
 };
 
 export const useIssueResults = (owner, repo) => {
