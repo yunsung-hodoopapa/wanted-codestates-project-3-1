@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import StoredRepository from './StoredRepository';
 import List from './List';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
-
+import { useIssueResults } from '../util/axios';
 const Container = styled.div`
   /* margin: 50px; */
   background-color: white;
@@ -19,12 +19,20 @@ const Title = styled.div`
 
 const StoredRepoContainer = () => {
   const data = useSelector(state => state.data.store);
-  console.log(data);
+  const [state, setState] = useState([]);
+  const { realData, error, isFetching, isPreviousData, status } =
+    useIssueResults(state[1], state[0]);
+  const searchIssue = (owner, repoName) => {
+    setState([owner, repoName]);
+  };
+  console.log(realData);
   return (
     <Container>
       <Title>Stored Repository</Title>
       {data.map((obj, idx) => {
-        return <List key={idx} item={obj} type="stored" />;
+        return (
+          <List key={idx} item={obj} type="stored" searchIssue={searchIssue} />
+        );
       })}
       {/* <List /> */}
     </Container>

@@ -4,16 +4,25 @@ import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { deleteRepo, storeRepo } from '../redux/actionTypes';
 
-const List = ({ type = 'repo', item, clickHandle }) => {
+const List = ({ type = 'repo', item, clickHandle, searchIssue }) => {
   const dispatch = useDispatch();
   let itemId, repoName, htmlUrl, imgUrl, title, text, date;
   let owner_id, owner_name;
 
+  let owner;
   if (type === 'issue') {
     const issue = item;
   } else if (type === 'stored') {
-    const { id, full_name, description, updated_at, name, avatar_url } = item;
-    [itemId, title, imgUrl, text, date, owner_id, owner_name] = [
+    const {
+      id,
+      full_name,
+      description,
+      updated_at,
+      name,
+      avatar_url,
+      owner_id,
+    } = item;
+    [itemId, title, imgUrl, text, date, owner, owner_name] = [
       id,
       full_name,
       avatar_url,
@@ -46,6 +55,8 @@ const List = ({ type = 'repo', item, clickHandle }) => {
   const onClickEvent = () => {
     if (type === 'repo') {
       clickHandle(detailData);
+    } else if (type === 'stored') {
+      searchIssue(owner, owner_name);
     }
   };
 
@@ -206,6 +217,7 @@ List.propTypes = {
   type: PropTypes.string,
   item: PropTypes.object,
   clickHandle: PropTypes.func,
+  searchIssue: PropTypes.func,
 };
 
 export default List;

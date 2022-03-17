@@ -29,7 +29,8 @@ const getIssue = async (owner, repo) => {
         headers,
       },
     });
-    const issueData = response.body;
+    const issueData = response.data;
+    console.log(issueData);
     return issueData;
   } catch (error) {
     console.error(error);
