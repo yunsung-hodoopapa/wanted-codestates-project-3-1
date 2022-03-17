@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { deleteRepo, storeRepo, notify } from '../redux/actionTypes';
-import { useEffect } from 'react';
+import { MdClose } from 'react-icons/md';
 
 const List = ({
   type = 'repo',
@@ -116,7 +116,11 @@ const List = ({
           </button>
         ) : null}
         {type === 'issue' ? <p>{repoName[1] + '/' + repoName[0]}</p> : null}
-        {type === 'stored' ? <i onClick={removeRepo}></i> : null}
+        {type === 'stored' ? (
+          <i onClick={removeRepo}>
+            <MdClose size={23} color={'#999'} />
+          </i>
+        ) : null}
       </Option>
     </Box>
   );
@@ -134,7 +138,7 @@ const Box = styled.div`
     filter: ${props =>
       props.type !== 'stored'
         ? 'drop-shadow(2px 2px 10px rgba(84, 83, 133, 0.3))'
-        : 'none'};
+        : 'drop-shadow(2px 2px 10px rgba(84, 83, 133, 0.3))'};
   }
 
   box-shadow: ${props =>
@@ -146,6 +150,8 @@ const Box = styled.div`
 const Content = styled.div`
   display: flex;
   width: 100%;
+  overflow: hidden;
+  cursor: pointer;
   img {
     width: 50px;
     height: 50px;
@@ -157,6 +163,10 @@ const Content = styled.div`
     font-size: 20px;
     font-weight: 600;
     color: var(--main-blue);
+    width: 360px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
   }
   p {
     font-size: 16px;
@@ -211,36 +221,22 @@ const Option = styled.div`
   //repoName
   p {
     width: 250px;
-    margin-right: 29px;
-    margin-top: 72px;
-    color: #7281d6;
+    position: absolute;
+    text-align: right;
+    bottom: 12px;
+    right: 26px;
+    color: var(--sub-blue);
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
   }
   //reopRemove
   i {
+    position: absolute;
+    top: 10px;
+    right: 10px;
     display: block;
-    padding: 13px;
-    width: 20px;
-    height: 20px;
     cursor: pointer;
-    ::after,
-    ::before {
-      display: block;
-      position: absolute;
-      right: 23px;
-      width: 1px;
-      height: 20px;
-      background-color: #666;
-      content: '';
-    }
-    ::after {
-      transform: rotate(45deg);
-    }
-    ::before {
-      transform: rotate(-45deg);
-    }
   }
 `;
 

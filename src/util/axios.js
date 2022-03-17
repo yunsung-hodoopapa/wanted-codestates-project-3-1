@@ -24,7 +24,6 @@ const getIssue = async (owner, repo, page) => {
     const response = await axios.get(`/api/repos/${owner}/${repo}/issues`, {
       params: {
         page,
-        per_page: 7,
       },
       headers,
     });
@@ -50,7 +49,7 @@ export const useRepoResults = (keyword, page) => {
 
 export const useIssueResults = (owner, repo, page) => {
   return useQuery(
-    ['owner', owner, repo],
+    ['owner', owner, repo, page],
     () => {
       return getIssue(owner, repo, page);
     },
