@@ -8,6 +8,7 @@ import List from '../components/List';
 import RepoDetail from '../components/RepoDetail';
 import { QueryClientProvider, QueryClient } from 'react-query';
 import Pagination from '../components/Pagination';
+import NotificationMessage from '../components/NotificationMessage';
 
 const Main = () => {
   const queryClient = new QueryClient();
@@ -36,7 +37,7 @@ const Main = () => {
     searchInput(changeValue);
   };
 
-  const clickRepo = (detailContent) => {
+  const clickRepo = detailContent => {
     setDetailContent(detailContent);
   };
 
@@ -59,6 +60,7 @@ const Main = () => {
           />
         </Container>
         <RepoDetail detailContent={detailContent} />
+        <NotificationMessage />
       </QueryClientProvider>
     </MainWrap>
   );

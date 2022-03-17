@@ -1,14 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { deleteRepo, storeRepo } from '../redux/actionTypes';
+import { deleteRepo, storeRepo, notify } from '../redux/actionTypes';
+import NotificationMessage from './NotificationMessage';
 
 const List = ({ type = 'repo', item, clickHandle }) => {
   const dispatch = useDispatch();
   let itemId, repoName, htmlUrl, imgUrl, title, text, date;
   let owner_id, owner_name;
 
+  const StoredData = useSelector(state => state.data.store);
+
+  console.log(StoredData);
   if (type === 'issue') {
     const issue = item;
   } else {
@@ -39,17 +44,23 @@ const List = ({ type = 'repo', item, clickHandle }) => {
   };
 
   const saveRepo = () => {
-    dispatch(
-      storeRepo({
-        id: itemId,
-        owner_id,
-        name: owner_name,
-        full_name: title,
-        description: text,
-        updated_at: date,
-        avatar_url: imgUrl,
-      }),
-    );
+    if (StoredData.length >= 4) {
+      console.log(StoredData);
+      dispatch(notify('repository 저장 개수를 초과했습니다.', 1500));
+    } else {
+      dispatch(
+        storeRepo({
+          id: itemId,
+          owner_id,
+          name: owner_name,
+          full_name: title,
+          description: text,
+          updated_at: date,
+          avatar_url: imgUrl,
+        }),
+      );
+      dispatch(notify('repository를 저장소에 저장했습니다.', 1500));
+    }
   };
 
   const removeRepo = () => {
