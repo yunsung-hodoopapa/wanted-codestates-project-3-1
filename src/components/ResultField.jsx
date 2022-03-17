@@ -43,7 +43,7 @@ const ResultField = ({ inputValue, setInputValue, clickRepo }) => {
                   return (
                     <Box key={id} onClick={() => clickRepo(detailData)}>
                       <Content>
-                        <img src={avatar_url} alt={name} />
+                        <img src={avatar_url} alt="avatar_image" />
                         <div>
                           <h3>{full_name}</h3>
                           <p>{description}</p>
@@ -192,7 +192,7 @@ const Option = styled.div`
 
 ResultField.propTypes = {
   inputValue: PropTypes.string,
-  setInputValue: PropTypes.string,
+  setInputValue: PropTypes.func,
   clickRepo: PropTypes.func,
 };
 
