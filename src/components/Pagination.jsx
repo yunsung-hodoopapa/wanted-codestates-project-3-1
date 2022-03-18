@@ -15,9 +15,10 @@ const PaginationComponent = styled.div`
     justify-content: center;
     overflow: hidden;
     li {
+      width: calc(100% / 5);
       button {
-        padding: 4px 7px;
-        margin: 0 2px;
+        width: 100%;
+        padding: 7px 0;
         background-color: transparent;
         border: 1px solid #ccc;
         box-sizing: border-box;
@@ -51,15 +52,11 @@ const PaginationComponent = styled.div`
       &:nth-child(2) {
         right: 0;
       }
-      svg {
-      }
     }
   }
 `;
 
 const Pagination = ({ page, setPage, totalCount, isPreviousData }) => {
-  // eslint-disable-next-line no-debugger
-  const [pageNum, setPageNum] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [postPerPage, setPostPerPage] = useState(5);
 
@@ -73,8 +70,8 @@ const Pagination = ({ page, setPage, totalCount, isPreviousData }) => {
   }
 
   const moveRightPageNum = () => {
-    if (totalCount/postPerPage < page) {
-      return
+    if (totalCount / postPerPage < page) {
+      return;
     }
     setPage(page + 5);
     setCurrentPage(currentPage + 1);
